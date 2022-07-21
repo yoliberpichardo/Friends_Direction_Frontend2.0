@@ -120,5 +120,4 @@ export default {
   margin: 1rem auto;
   color: #000;
 }
-
 </style>

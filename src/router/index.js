@@ -25,5 +25,15 @@ export default route(function (/* { store, ssrContext } */) {
     }
   })
 
+  Router.beforeEach(async (to, from) => {
+    if (
+      // make sure the user is authenticated
+      !token && to.name !== 'Register' && to.name !== 'Login'
+    ) {
+      // redirect the user to the login page
+      return { name: 'Login' }
+    }
+  })
+
   return Router
 })

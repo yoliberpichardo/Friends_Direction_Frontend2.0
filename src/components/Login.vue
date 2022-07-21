@@ -32,7 +32,6 @@ export default {
 
     const redirectRegister = () => {
       router().replace({ path: "/register" });
-
     };
 
     return {
@@ -210,4 +209,5 @@ export default {
     transform: translate(24px, 0);
   }
 }
+
 </style>
