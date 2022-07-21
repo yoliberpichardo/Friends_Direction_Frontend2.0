@@ -48,6 +48,7 @@ export default {
     </q-card-section>
     <div class="bodyForm">
       <div class="inputContent">
+        
         <q-input bg-color="white" outlined label="Name" v-model="result_name"/>
 
         <q-input bg-color="white" outlined label="Email" v-model="result_email"/>
