@@ -16,18 +16,18 @@ export default {
         alert('Tu contraseña es demasiada corta, debe de ser mayor a 6 caracteres')
       }
        else {
-        const userCompare = await getOptions.post("/register", { 
+        const userCompare = await getOptions.post("/register", {
           name: result_name.value,
           email: result_email.value,
           password: result_password.value,
         });
         console.log(userCompare);
-        return userCompare, router.replace({ path: "/login" });
+        return userCompare, router().replace({ path: "/login" });
       }
     };
 
     const redirectLogin = () => {
-      router.replace({ path: "/Login" });
+      router().replace({ path: "/login" });
     };
 
     return {
@@ -42,33 +42,33 @@ export default {
 </script>
 
 <template>
-  <div class="bodyRegister">
-    <div class="descriptionRegister">
+  <q-card class="bodyRegister">
+    <q-card-section class="descriptionRegister">
       <h1>Register</h1>
-    </div>
+    </q-card-section>
     <div class="bodyForm">
       <div class="inputContent">
-        <label>Name</label>
-        <input type="text" placeholder="Name" v-model="result_name" />
-        <label>Email</label>
-        <input type="text" placeholder="Email" v-model="result_email" />
-        <label>Password</label>
-        <input type="text" placeholder="Password" v-model="result_password" />
+        
+        <q-input bg-color="white" outlined label="Name" v-model="result_name"/>
+
+        <q-input bg-color="white" outlined label="Email" v-model="result_email"/>
+
+        <q-input bg-color="white" outlined label="Password" v-model="result_password"/>
       </div>
 
       <div class="buttonContent">
-        <button @click="redirectLogin">Log In</button>
-        <button @click="sendData">Register</button>
+        <q-btn @click="redirectLogin">Log in</q-btn>
+        <q-btn @click="sendData">Register</q-btn>
       </div>
     </div>
-  </div>
+  </q-card>
 </template>
 
 <style scope>
 .bodyRegister {
   background: #000;
-  width: 28rem;
-  height: 28rem;
+  width: 31rem;
+  height: 32rem;
   padding: 1.5rem;
   margin: 10% auto;
   display: flex;
@@ -79,37 +79,34 @@ export default {
 .descriptionRegister {
   height: 30%;
   color: #fff;
+  display: flex;
+  justify-content: center;
 }
 
 .descriptionRegister h1 {
   margin: 1rem;
+  font-size: 5rem;
 }
 
 .bodyForm {
-  height: 70%;
+  width: 100%;
+  height: 75%;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .inputContent {
-  height: 60%;
+  width: 82%;
+  height: 80%;
   margin: 0.5rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-}
-
-.inputContent input {
-  width: 20rem;
-  height: 2rem;
-  margin: 0.1rem auto 1rem auto;
-  padding: 7px;
-  border-radius: 0.5rem;
-  border: none;
-  text-size-adjust: 1rem;
+  justify-content: space-around;
 }
 
 .buttonContent {
+  width: 90%;
   height: 30%;
   display: flex;
   flex-direction: row;
@@ -123,5 +120,4 @@ export default {
   margin: 1rem auto;
   color: #000;
 }
-
 </style>

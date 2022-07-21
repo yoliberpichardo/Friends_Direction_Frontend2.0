@@ -25,13 +25,13 @@ export default {
         } else {
           localStorage.setItem("token", userCompare.data.token);
           initLogin.value = false;
-          router.replace({ path: "/home" });
+          router().replace({ path: "/home" });
         }
       }
     };
 
     const redirectRegister = () => {
-      router.replace({ path: "/register" });
+      router().replace({ path: "/register" });
     };
 
     return {
@@ -137,19 +137,14 @@ export default {
   flex-direction: row;
 }
 
-.buttonContent button {
+/* .buttonContent button {
   width: 40%;
   height: 2rem;
   background-color: #fff;
   color: #000;
   border-radius: 0.5rem;
   margin: 1rem auto;
-}
-
-.buttonContent button:hover {
-  background-color: #ffffffd6;
-  border-style: solid 3px #8ae6f6;
-}
+} */
 
 /* spinner */
 .animationContent {
@@ -214,4 +209,5 @@ export default {
     transform: translate(24px, 0);
   }
 }
+
 </style>
