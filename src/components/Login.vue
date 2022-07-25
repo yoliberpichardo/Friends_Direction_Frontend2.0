@@ -1,7 +1,7 @@
 <script>
 import { ref } from "@vue/runtime-core";
 import getOptions from "../api/dataBase";
-import Router from '../router';
+import router from '../router';
 
 export default {
   name: "Login",
@@ -9,7 +9,6 @@ export default {
     const result_email = ref("");
     const result_password = ref("");
     const initLogin = ref(false);
-    const router = Router()
 
     const sendData = async () => {
       if (!result_email.value || !result_password.value) {

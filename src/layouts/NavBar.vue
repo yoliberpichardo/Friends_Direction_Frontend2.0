@@ -17,7 +17,7 @@ export default {
     <div class="bodyNav">
         <div class="contentRouter">
             <router-link to="/home">Inicio</router-link>
-            <router-link to="/home/search">Amigos</router-link>
+            <router-link to="home/search">Amigos</router-link>
             <router-view></router-view>
         </div>
     </div>
@@ -30,17 +30,17 @@ export default {
         display: flex;
         justify-content: space-between;
         padding: 0 1rem;
-        background-color: #000;
+        background: aqua;
     }
     .contentRouter {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         justify-content: center;
         align-items: center;
     }
 
     .contentRouter a {
-        color: #fff;
+        color: rgb(0, 0, 0);
         font-size: 1.5rem;
         text-decoration: none;
         margin: 0 10px;

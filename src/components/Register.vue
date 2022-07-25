@@ -1,14 +1,13 @@
 <script>
 import { ref } from "@vue/runtime-core";
 import getOptions from "../api/dataBase";
-import Router from '../router';
+import router from '../router';
 
 export default {
   setup(props) {
     const result_email = ref("");
     const result_password = ref("");
     const result_name = ref("");
-    const router = Router()
 
     const sendData = async () => {
       if (!result_name.value || !result_email.value || !result_password.value ) {
