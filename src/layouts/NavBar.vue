@@ -1,9 +1,10 @@
 <script>
-import useStore from '../store/store'
+import useStore from 'src/stores/store'
+
 export default {
     setup(){
         const use = useStore()
-    
+
         return{
             use
         }

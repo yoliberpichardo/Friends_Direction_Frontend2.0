@@ -10,8 +10,8 @@ import { onMounted, ref } from 'vue-demi'
 import Login from '../components/Login.vue'
 import User from '../components/User.vue'
 import NavBar from '../layouts/NavBar.vue'
-import useStore from '../store/store'
 import getOptions from '../api/dataBase'
+import useStore from 'src/stores/store'
 
 export default defineComponent({
   name: 'IndexPage' ,

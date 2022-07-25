@@ -1,13 +1,14 @@
 <script>
 import { ref } from "@vue/runtime-core";
 import getOptions from "../api/dataBase";
-import router from "../router";
+import Router from '../router';
 
 export default {
   setup(props) {
     const result_email = ref("");
     const result_password = ref("");
     const result_name = ref("");
+    const router = Router()
 
     const sendData = async () => {
       if (!result_name.value || !result_email.value || !result_password.value ) {
@@ -22,12 +23,12 @@ export default {
           password: result_password.value,
         });
         console.log(userCompare);
-        return userCompare, router().replace({ path: "/login" });
+        return userCompare, router.replace({ path: "/login" });
       }
     };
 
     const redirectLogin = () => {
-      router().replace({ path: "/login" });
+      return router.replace({ path: "/login" });
     };
 
     return {
@@ -36,6 +37,7 @@ export default {
       result_name,
       sendData,
       redirectLogin,
+      router
     };
   },
 };
@@ -48,7 +50,7 @@ export default {
     </q-card-section>
     <div class="bodyForm">
       <div class="inputContent">
-        
+
         <q-input bg-color="white" outlined label="Name" v-model="result_name"/>
 
         <q-input bg-color="white" outlined label="Email" v-model="result_email"/>

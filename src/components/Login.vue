@@ -1,13 +1,15 @@
 <script>
 import { ref } from "@vue/runtime-core";
 import getOptions from "../api/dataBase";
-import router from "../router/index";
+import Router from '../router';
+
 export default {
   name: "Login",
   setup(props) {
     const result_email = ref("");
     const result_password = ref("");
     const initLogin = ref(false);
+    const router = Router()
 
     const sendData = async () => {
       if (!result_email.value || !result_password.value) {
@@ -25,13 +27,13 @@ export default {
         } else {
           localStorage.setItem("token", userCompare.data.token);
           initLogin.value = false;
-          router().replace({ path: "/home" });
+          return router.replace({ path: "/home" });
         }
       }
     };
 
     const redirectRegister = () => {
-      router().replace({ path: "/register" });
+      return router.replace({ path: "/register" });
     };
 
     return {
@@ -40,7 +42,7 @@ export default {
       sendData,
       redirectRegister,
       initLogin,
-      router,
+      router
     };
   },
   methods: {
@@ -50,46 +52,44 @@ export default {
 </script>
 
 <template>
-  <div class="bodyLogin">
+  <q-card class="bodyLogin">
     <div class="descriptionLogin">
       <h1>Log In</h1>
       <p>Login here using your email and password</p>
     </div>
-    <div class="bodyForm">
-      <div class="inputContent">
+    <q-card-section class="bodyForm">
+      <q-card-section class="inputContent">
         <div v-if="initLogin" class="animationContent">
-          <div>
+          <q-card-actions>
             <div class="lds-ellipsis">
               <div></div>
               <div></div>
               <div></div>
               <div></div>
             </div>
-          </div>
+          </q-card-actions>
         </div>
-        <input type="text" placeholder="Email" v-model="result_email" />
-        <input
-          type="password"
-          placeholder="Password"
-          v-model="result_password"
-        />
-      </div>
-      <div class="buttonContent">
-        <button @click="redirectRegister">Register</button>
-        <button @click="sendData">
+        <q-input bg-color="white" outlined label="Email" v-model="result_email"/>
+
+        <q-input bg-color="white" outlined label="Password" v-model="result_password"/>
+      </q-card-section>
+
+      <q-card-section class="buttonContent">
+        <q-btn @click="redirectRegister">Register</q-btn>
+        <q-btn @click="sendData">
           <span v-if="!initLogin">Login</span>
           <span v-if="initLogin">Loading...</span>
-        </button>
-      </div>
-    </div>
-  </div>
+        </q-btn>
+      </q-card-section>
+    </q-card-section>
+  </q-card>
 </template>
 
 <style scope>
 .bodyLogin {
   background: #000;
-  width: 28rem;
-  height: 28rem;
+  width: 31rem;
+  height: 32rem;
   padding: 1.5rem;
   margin: 10% auto;
   display: flex;
@@ -100,6 +100,9 @@ export default {
 .descriptionLogin {
   height: 30%;
   color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .descriptionLogin h1,
@@ -108,43 +111,37 @@ export default {
 }
 
 .bodyForm {
-  height: 70%;
+  width: 100%;
+  height: 75%;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .inputContent {
-  height: 60%;
+  width: 82%;
+  height: 80%;
   margin: 0.5rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
 }
 
-.inputContent input {
-  width: 20rem;
-  height: 2rem;
-  margin: 1rem auto;
-  padding: 7px;
-  border-radius: 0.5rem;
-  border: none;
-  text-size-adjust: 1rem;
-}
 
 .buttonContent {
+  width: 90%;
   height: 30%;
   display: flex;
   flex-direction: row;
 }
 
-/* .buttonContent button {
+.buttonContent button {
   width: 40%;
   height: 2rem;
   background-color: #fff;
   color: #000;
-  border-radius: 0.5rem;
   margin: 1rem auto;
-} */
+}
 
 /* spinner */
 .animationContent {
