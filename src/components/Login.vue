@@ -1,7 +1,9 @@
 <script>
 import { ref } from "@vue/runtime-core";
 import getOptions from "../api/dataBase";
-import router from '../router';
+import router from 'src/router';
+
+
 
 export default {
   name: "Login",
@@ -19,20 +21,15 @@ export default {
           email: result_email.value,
           password: result_password.value,
         });
-        if (!userCompare.data.token) {
-          alert(`Error al iniciar la sesion, ${userCompare.data.msg}`);
-          initLogin.value = false;
-          result_password.value = "";
-        } else {
           localStorage.setItem("token", userCompare.data.token);
           initLogin.value = false;
-          return router.replace({ path: "/home" });
-        }
+          router.push('/home')
+
       }
     };
 
     const redirectRegister = () => {
-      return router.replace({ path: "/register" });
+      return router.push("/register");
     };
 
     return {
@@ -44,10 +41,7 @@ export default {
       router
     };
   },
-  methods: {
-    redirectRouter() {},
-  },
-};
+}
 </script>
 
 <template>

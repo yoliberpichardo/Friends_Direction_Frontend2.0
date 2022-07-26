@@ -40,8 +40,6 @@ const routes = [
   //   name: 'Search',
   //   component: () => import('layouts/SearchFriends.vue')
   // },
-  // Always leave this as last one,
-  // but you can also remove it
   {
     path: '/:catchAll(.*)*',
     component: () => import('pages/ErrorNotFound.vue')

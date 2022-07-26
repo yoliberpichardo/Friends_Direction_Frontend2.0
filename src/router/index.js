@@ -1,8 +1,5 @@
-import { route } from 'quasar/wrappers'
 import { createRouter, createMemoryHistory, createWebHistory, createWebHashHistory } from 'vue-router'
 import routes from './routes'
-
-const token = localStorage.getItem('token')
 
 
 const router = createRouter({
@@ -11,9 +8,10 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from) => {
+  const token = localStorage.getItem('token')
   if (
     // make sure the user is authenticated
-    !token && to.name !== 'Register' && to.name !== 'Login'
+     !token && to.name !== 'Register' && to.name !== 'Login'
   ) {
     // redirect the user to the login page
     return { name: 'Login' }
