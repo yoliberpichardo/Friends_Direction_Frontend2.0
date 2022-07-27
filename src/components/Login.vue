@@ -22,6 +22,7 @@ export default {
           password: result_password.value,
         });
           localStorage.setItem("token", userCompare.data.token);
+          console.log(userCompare);
           initLogin.value = false;
           router.push('/home')
 

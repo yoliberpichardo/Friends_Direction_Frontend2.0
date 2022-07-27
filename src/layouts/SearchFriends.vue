@@ -1,40 +1,73 @@
 
 <script>
 import { ref } from "@vue/reactivity";
-import { watch } from "@vue/runtime-core";
+import { onMounted, watch } from "@vue/runtime-core";
 import getOptions from "../api/dataBase";
 import useStore from "src/stores/store";
-import { useQuasar } from 'quasar'
+import { uid, useQuasar } from 'quasar'
 
 export default {
   setup() {
     const use = useStore();
-    const result = ref("");
     const token = localStorage.getItem("token");
     const $q = useQuasar()
+    const statusResquet = ref(false)
+    const verifyResquet = ref(Object)
+    const myID = ref('')
 
     const sendResquet = async (uid) => {
-      const resquet_send = await getOptions.post(
-        "resquet_send",
-        { friendID: uid },
-        {
-          headers: {
-            authorization: `bearer ${token}`,
-          },
-        }
-      );
+      if (verifyResquet.value.data[0].resquet_send.indexOf(uid) !== 0) {
 
+        const resquet_send = await getOptions.post("resquet_send",
+          { friendID: uid },
+          {
+            headers: {
+              authorization: `bearer ${token}`,
+            },
+          }
+        );
         $q.notify({
           type: 'positive',
-          message: 'Solicitud enviada'
-        })
+          message: resquet_send.data.msg
 
-      console.log(resquet_send);
+        })
+      } else {
+        $q.notify({
+          type: 'warning',
+          message: 'Ya haz enviado una solicitud'
+        })
+      }
     };
+
+    const requestConfirm = (id,uid) => {
+      console.log(uid, use.friendsData[uid].request_received.indexOf(id));
+      if(use.friendsData[uid].request_received.indexOf(id) !== 0){
+        return !statusResquet.value
+      }else{
+        return statusResquet.value
+      }
+    }
+
+    //peticion del usuario al montarse
+    onMounted(async () => {
+      verifyResquet.value = await(await getOptions.post('myuser', {}, {
+        headers: {
+            authorization: `bearer ${token}`,
+          },
+      })).data
+
+      myID.value = verifyResquet.value.data[0].uid
+
+      // requestConfirm(myID.value)
+    })
 
     return {
       use,
       sendResquet,
+      statusResquet,
+      verifyResquet,
+      requestConfirm,
+      myID
     }
   },
 };
@@ -49,7 +82,7 @@ export default {
     </div>
     <q-card-section
       class="resultFriends"
-      v-for="friend in use.friendsUpdate()"
+      v-for="(friend, index) in use.friendsUpdate()"
       :key="friend.uid"
     >
       <q-card  class="bodyResult">
@@ -58,8 +91,8 @@ export default {
             <h3>{{ friend.name }}</h3>
           </div>
           <div @click="sendResquet(friend.uid)">
-            <q-icon name="person_add"  size="3rem"/>
-            <q-icon name="person" size="3rem"/>
+            <q-icon name="person_add" size="3rem" v-if="requestConfirm(myID,index)"/>
+            <q-icon name="how_to_reg" color="positive" size="3rem" v-else/>
           </div>
         </div>
       </q-card>

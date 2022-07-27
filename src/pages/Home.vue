@@ -16,8 +16,6 @@ export default {
   setup(){
     const use = useStore()
     const token = localStorage.getItem('token')
-    const viewMenu = ref(false)
-    const viewSearch = ref(false)
 
     onMounted(async () => {
       use.friendsData = await( await getOptions.post('/user',{},{
@@ -29,8 +27,6 @@ export default {
 
     return{
       use,
-      viewMenu,
-      viewSearch
     }
   }
 }

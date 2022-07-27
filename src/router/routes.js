@@ -12,17 +12,6 @@ const routes = [
     component: () => import('components/Register.vue')
   },
   {
-    path:'/login',
-    name: 'Login',
-    component: () => import('components/Login.vue'),
-    meta : { requiresAuth: false },
-  },
-  {
-    path:'/register',
-    name: 'Register',
-    component: () => import('components/Register.vue')
-  },
-  {
     path: '/home',
     name: 'Home',
     component: () => import('pages/Home.vue'),
@@ -31,15 +20,12 @@ const routes = [
       {
         path: 'search',
         name: 'Search',
-        component: () => import('layouts/SearchFriends.vue')
+        component: () => import('layouts/SearchFriends.vue'),
+        meta : { requiresAuth: true },
+
       },
     ]
   },
-  // {
-  //   path: '/search',
-  //   name: 'Search',
-  //   component: () => import('layouts/SearchFriends.vue')
-  // },
   {
     path: '/:catchAll(.*)*',
     component: () => import('pages/ErrorNotFound.vue')
