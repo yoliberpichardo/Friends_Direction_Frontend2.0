@@ -1,9 +1,8 @@
 <script>
-import { onMounted, ref } from 'vue-demi'
+import { onMounted, onUpdated, ref } from 'vue-demi'
 import Login from '../components/Login.vue'
 import User from '../components/User.vue'
 import NavBar from '../layouts/NavBar.vue'
-import getOptions from '../api/dataBase'
 import useStore from 'src/stores/store'
 import SearchFriends from 'src/layouts/SearchFriends.vue'
 
@@ -15,14 +14,10 @@ export default {
 },
   setup(){
     const use = useStore()
-    const token = localStorage.getItem('token')
+
 
     onMounted(async () => {
-      use.friendsData = await( await getOptions.post('/user',{},{
-        headers:{
-          authorization:`bearer ${token}`
-        }
-      })).data.dataFilter
+      use.friendsData = await use.dataGet()
     })
 
     return{
@@ -43,6 +38,10 @@ export default {
   .home{
     width: 100%;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
   }
 
 </style>

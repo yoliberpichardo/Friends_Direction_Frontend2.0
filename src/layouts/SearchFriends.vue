@@ -1,7 +1,7 @@
 
 <script>
 import { ref } from "@vue/reactivity";
-import { onMounted, watch } from "@vue/runtime-core";
+import { onMounted, onUpdated, watch } from "@vue/runtime-core";
 import getOptions from "../api/dataBase";
 import useStore from "src/stores/store";
 import { uid, useQuasar } from 'quasar'
@@ -16,9 +16,8 @@ export default {
     const myID = ref('')
 
     const sendResquet = async (uid) => {
-      if (verifyResquet.value.data[0].resquet_send.indexOf(uid) !== 0) {
-
-        const resquet_send = await getOptions.post("resquet_send",
+        try{
+          const resquet_send = await getOptions.post("resquet_send",
           { friendID: uid },
           {
             headers: {
@@ -31,24 +30,18 @@ export default {
           message: resquet_send.data.msg
 
         })
-      } else {
+        use.friendsData = await use.dataGet()
+      } catch (error) {
         $q.notify({
-          type: 'warning',
-          message: 'Ya haz enviado una solicitud'
+          type: 'negative',
+          message: 'no se pudo enviar la solicitud'
         })
       }
-    };
-
-    const requestConfirm = (id,uid) => {
-      console.log(uid, use.friendsData[uid].request_received.indexOf(id));
-      if(use.friendsData[uid].request_received.indexOf(id) !== 0){
-        return !statusResquet.value
-      }else{
-        return statusResquet.value
       }
-    }
+
 
     //peticion del usuario al montarse
+
     onMounted(async () => {
       verifyResquet.value = await(await getOptions.post('myuser', {}, {
         headers: {
@@ -58,6 +51,16 @@ export default {
 
       myID.value = verifyResquet.value.data[0].uid
 
+      use.friendsData.forEach(element => {
+        console.log(element.request_received.indexOf(myID.value), element.request_received, myID.value);
+        if(element.request_received.indexOf(myID.value) > -1){
+          element.statusResquet = true
+        }else {
+          element.statusResquet = false
+        }
+        return element
+      })
+
       // requestConfirm(myID.value)
     })
 
@@ -66,7 +69,6 @@ export default {
       sendResquet,
       statusResquet,
       verifyResquet,
-      requestConfirm,
       myID
     }
   },
@@ -82,17 +84,18 @@ export default {
     </div>
     <q-card-section
       class="resultFriends"
-      v-for="(friend, index) in use.friendsUpdate()"
+      v-for="(friend) in use.friendsUpdate()"
       :key="friend.uid"
     >
-      <q-card  class="bodyResult">
+      <q-card  class="bodyResult" >
         <div class="descriptContent">
           <div class="nameContent">
             <h3>{{ friend.name }}</h3>
           </div>
-          <div @click="sendResquet(friend.uid)">
-            <q-icon name="person_add" size="3rem" v-if="requestConfirm(myID,index)"/>
+          <div>
+            <q-icon name="person_add" size="3rem" @click="sendResquet(friend.uid)" v-if="!friend.request_received.includes(myID)"/>
             <q-icon name="how_to_reg" color="positive" size="3rem" v-else/>
+
           </div>
         </div>
       </q-card>
@@ -102,7 +105,7 @@ export default {
 
 <style scoped>
 .bodySearch {
-  width: 40rem;
+  width: 30rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
