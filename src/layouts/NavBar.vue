@@ -1,21 +1,20 @@
 <script>
 import useStore from 'src/stores/store'
 import { ref } from 'vue-demi'
+import Notification from 'src/components/Notification.vue'
 
 export default {
-    setup(){
-        const use = useStore()
-        const viewSearch = ref(false)
-        const viewMenu = ref(false)
-
-
-        return{
+    setup() {
+        const use = useStore();
+        const viewSearch = ref(false);
+        const viewMenu = ref(false);
+        return {
             use,
             viewSearch,
             viewMenu,
-        }
-    }
-
+        };
+    },
+    components: { Notification }
 }
 </script>
 
@@ -51,6 +50,8 @@ export default {
                 <router-link to="/home/search">
                   <q-tab name="Amigos" label="Amigos"></q-tab>
                 </router-link>
+
+                <Notification />
               </q-tabs>
             </div>
           </div>

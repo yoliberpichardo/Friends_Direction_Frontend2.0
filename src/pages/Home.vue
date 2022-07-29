@@ -17,7 +17,7 @@ export default {
 
 
     onMounted(async () => {
-      use.friendsData = await use.dataGet()
+      use.friendsData = await use.friendsGet()
     })
 
     return{

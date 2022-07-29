@@ -12,8 +12,8 @@ export default {
     const token = localStorage.getItem("token");
     const $q = useQuasar()
     const statusResquet = ref(false)
-    const verifyResquet = ref(Object)
     const myID = ref('')
+    const getMyID = ref(Object)
 
     const sendResquet = async (uid) => {
         try{
@@ -30,7 +30,7 @@ export default {
           message: resquet_send.data.msg
 
         })
-        use.friendsData = await use.dataGet()
+        use.friendsData = await use.friendsGet()
       } catch (error) {
         $q.notify({
           type: 'negative',
@@ -43,13 +43,10 @@ export default {
     //peticion del usuario al montarse
 
     onMounted(async () => {
-      verifyResquet.value = await(await getOptions.post('myuser', {}, {
-        headers: {
-            authorization: `bearer ${token}`,
-          },
-      })).data
 
-      myID.value = verifyResquet.value.data[0].uid
+      getMyID.value = await use.verifyResquet()
+
+      myID.value = getMyID.value.data[0].uid
 
       use.friendsData.forEach(element => {
         console.log(element.request_received.indexOf(myID.value), element.request_received, myID.value);
@@ -61,15 +58,14 @@ export default {
         return element
       })
 
-      // requestConfirm(myID.value)
     })
 
     return {
       use,
       sendResquet,
       statusResquet,
-      verifyResquet,
-      myID
+      myID,
+      getMyID
     }
   },
 };
