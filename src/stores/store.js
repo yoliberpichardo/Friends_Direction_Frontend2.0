@@ -20,7 +20,7 @@ const useStore = defineStore('storeID', {
       return this.friendsData
     },
     async friendsGet() {
-      return await (await getOptions.post('/user', {}, {
+      return await (await getOptions.get('user', {
         headers: {
           authorization: `bearer ${this.token}`
         }
@@ -28,7 +28,7 @@ const useStore = defineStore('storeID', {
     },
 
     async verifyResquet() {
-      return await (await getOptions.post('myuser', {}, {
+      return await (await getOptions.get('myuser', {
         headers: {
           authorization: `bearer ${this.token}`,
         },
