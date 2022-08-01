@@ -7,7 +7,8 @@ const useStore = defineStore('storeID', {
       friendsData: [],
       friendsSearch: '',
       token: localStorage.getItem('token'),
-      friendsReceivedResquet: ''
+      friendsReceivedResquet: '',
+      modal: false
     }
   },
   actions: {

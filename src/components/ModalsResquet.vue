@@ -1,35 +1,37 @@
 <script>
 import { ref } from "vue";
+import useStore from 'src/stores/store';
 
 export default {
   setup() {
+    const use = useStore()
     return {
-      // toolbar: ref(false),
+      use
     };
   },
 };
 </script>
 <template>
-  <div class="q-pa-md q-gutter-sm">
+  <div id="bodyModal" class="q-pa-md q-gutter-sm">
       <q-card>
-        <q-toolbar>
-
-          <q-btn flat round dense icon="close" v-close-popup></q-btn>
+        <q-toolbar class="btnContent">
+          <q-btn flat round dense icon="close" @click="use.modal = !use.modal"></q-btn>
         </q-toolbar>
 
         <q-card-section style="max-height: 50vh" class="scroll">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum
-          repellendus sit voluptate voluptas eveniet porro. Rerum blanditiis
-          perferendis totam, ea at omnis vel numquam exercitationem aut, natus
-          minima, porro labore.Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum
-          repellendus sit voluptate voluptas eveniet porro. Rerum blanditiis
-          perferendis totam, ea at omnis vel numquam exercitationem aut, natus
-          minima, porro labore.Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum
-          repellendus sit voluptate voluptas eveniet porro. Rerum blanditiis
-          perferendis totam, ea at omnis vel numquam exercitationem aut, natus
-          minima, porro labore.
+          sdfguuuuuuuusduihiufhsdihiufhiojors
         </q-card-section>
       </q-card>
   </div>
 </template>
 
+<style scoped>
+  #bodyModal{
+    display: flex;
+    position: fixed;
+  }
+  .btnContent{
+    display: flex;
+    justify-content: end;
+  }
+</style>

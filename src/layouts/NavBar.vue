@@ -21,7 +21,7 @@ export default {
 <template>
     <q-card class="bodyNav">
       <div class="contentSearch">
-        <div v-if="viewSearch" class="contentInput">
+        <div v-if="viewSearch" class="contentInput2">
           <q-input rounded outlined dense/>
         </div>
 
@@ -66,9 +66,11 @@ export default {
         width: 100%;
         height: 3.5rem;
         display: flex;
+        position: fixed;
         justify-content: space-between;
         align-items: center;
         padding: 0 1rem;
+        z-index: 10000;
     }
 
      .contentSearch{
@@ -76,7 +78,7 @@ export default {
       flex-direction: row;
     }
 
-    .contentInput {
+    .contentInput2 {
       padding: 0 0.5rem;
     }
 
