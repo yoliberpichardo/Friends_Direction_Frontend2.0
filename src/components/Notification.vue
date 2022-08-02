@@ -7,15 +7,18 @@ export default {
         const use = useStore();
         const receivedResquet = ref(Object);
         let resquetInterval;
+        
         onMounted(async () => {
             receivedResquet.value = await use.friendsNumber();
             resquetInterval = setInterval(async () => {
                 receivedResquet.value = await use.friendsNumber();
             }, 20000);
         });
+
         onUnmounted(() => {
             clearInterval(receivedResquet);
         });
+
         return {
             use,
             receivedResquet,

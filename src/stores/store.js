@@ -7,7 +7,7 @@ const useStore = defineStore('storeID', {
       friendsData: [],
       friendsSearch: '',
       token: localStorage.getItem('token'),
-      friendsReceivedResquet: '',
+      friendsReceivedResquet: [],
       modal: false
     }
   },
@@ -48,6 +48,7 @@ const useStore = defineStore('storeID', {
           authorization: `bearer ${this.token}`,
         },
       })).data
+      console.log(this.friendsReceivedResquet);
 
       return this.friendsReceivedResquet
     },

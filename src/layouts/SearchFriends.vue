@@ -49,7 +49,6 @@ export default {
       myID.value = getMyID.value.data[0].uid
 
       use.friendsData.forEach(element => {
-        console.log(element.request_received.indexOf(myID.value), element.request_received, myID.value);
         if(element.request_received.indexOf(myID.value) > -1){
           element.statusResquet = true
         }else {
@@ -80,7 +79,7 @@ export default {
     </div>
     <q-card-section
       class="resultFriends"
-      v-for="(friend) in use.friendsUpdate()"
+      v-for="friend in use.friendsUpdate()"
       :key="friend.uid"
     >
       <q-card  class="bodyResult" >
