@@ -5,23 +5,23 @@ import { onMounted, onUnmounted, ref } from 'vue-demi';
 export default {
     setup() {
         const use = useStore();
-        const receivedResquet = ref(Object);
-        let resquetInterval;
-        
+        const receivedRequest = ref(Object);
+        let requestInterval;
+
         onMounted(async () => {
-            receivedResquet.value = await use.friendsNumber();
-            resquetInterval = setInterval(async () => {
-                receivedResquet.value = await use.friendsNumber();
+            receivedRequest.value = await use.friendsNumber();
+            requestInterval = setInterval(async () => {
+                receivedRequest.value = await use.friendsNumber();
             }, 20000);
         });
 
         onUnmounted(() => {
-            clearInterval(receivedResquet);
+            clearInterval(receivedRequest);
         });
 
         return {
             use,
-            receivedResquet,
+            receivedRequest,
             modal: ref(false)
         };
     }
@@ -29,8 +29,10 @@ export default {
 </script>
 <template>
   <div class="q-pa-md q-gutter-sm">
-    <q-btn dense color="black" round icon="notifications" class="q-ml-md" @click="use.getUsers(receivedResquet.data.request_received), use.modal = !use.modal">
-    <q-badge floating v-if="receivedResquet.data">{{receivedResquet.data.request_received.length}}</q-badge>
+    <q-btn dense color="black" round icon="notifications" class="q-ml-md" @click="use.getUsers(receivedRequest.data?.request_received), use.modal = !use.modal">
+    <span v-if="receivedRequest.data">
+      <q-badge floating v-if="receivedRequest.data?.request_received.length > 0">{{receivedRequest.data?.request_received?.length}}</q-badge>
+    </span>
     </q-btn>
   </div>
 </template>

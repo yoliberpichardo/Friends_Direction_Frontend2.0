@@ -16,15 +16,15 @@ const routes = [
     name: 'Home',
     component: () => import('pages/Home.vue'),
     meta : { requiresAuth: true },
-    children:[
-      {
-        path: 'search',
-        name: 'Search',
-        component: () => import('layouts/SearchFriends.vue'),
-        meta : { requiresAuth: true },
+    // children:[
+    //   {
+    //     path: 'search',
+    //     name: 'Search',
+    //     component: () => import('layouts/SearchFriends.vue'),
+    //     meta : { requiresAuth: true },
 
-      },
-    ]
+    //   },
+    // ]
   },
   {
     path: '/:catchAll(.*)*',

@@ -7,11 +7,16 @@ const useStore = defineStore('storeID', {
       friendsData: [],
       friendsSearch: '',
       token: localStorage.getItem('token'),
-      friendsReceivedResquet: [],
+      friendsReceivedRequest: [],
       modal: false
     }
   },
   actions: {
+
+    /**
+     *
+     * @returns list of friends search
+     */
     friendsUpdate() {
       if (this.friendsSearch) {
         return this.friendsData.filter((element) => {
@@ -20,6 +25,11 @@ const useStore = defineStore('storeID', {
       }
       return this.friendsData
     },
+
+    /**
+     *
+     * @returns list of friends in my user
+     */
     async friendsGet() {
       return await (await getOptions.get('user', {
         headers: {
@@ -28,7 +38,11 @@ const useStore = defineStore('storeID', {
       })).data.dataFilter
     },
 
-    async verifyResquet() {
+    /**
+     *
+     * @returns my user
+     */
+    async myUser() {
       return await (await getOptions.get('myuser', {
         headers: {
           authorization: `bearer ${this.token}`,
@@ -42,16 +56,35 @@ const useStore = defineStore('storeID', {
         },
       })).data
     },
+
+     /**
+     *
+     * @param {received ID users} userID
+     * @returns objects friends
+     */
+
     async getUsers(usersID) {
-      this.friendsReceivedResquet = await (await getOptions.post('get_users',{usersID}, {
+      this.friendsReceivedRequest = await (await getOptions.post('get_users',{usersID}, {
         headers: {
           authorization: `bearer ${this.token}`,
         },
       })).data
-      console.log(this.friendsReceivedResquet);
 
-      return this.friendsReceivedResquet
+      return this.friendsReceivedRequest
     },
+    /**
+     *
+     * @param {received ID users} userID
+     * @returns object if request is accepted
+     */
+    async acceptFriends(userID){
+      return await (await getOptions.put('accept_friend',{userID}, {
+        headers: {
+          authorization: `bearer ${this.token}`,
+        },
+      })).data
+    },
+
   }
 })
 

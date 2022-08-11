@@ -32,12 +32,12 @@ export default {
       </div>
 
       <div class="containerNavbar">
-        <div @click="viewMenu = !viewMenu" class="contentImgMenu">
+        <!-- <div @click="viewMenu = !viewMenu" class="contentImgMenu">
           <q-icon v-if="!viewMenu"  name="menu" size="2.5rem" />
           <q-icon v-if="viewMenu"  name="close" size="2.5rem" />
-        </div>
+        </div> -->
 
-        <div class="contentRouter" v-if="viewMenu">
+        <div class="contentRouter">
           <div class="q-pa-md" >
             <div class="q-gutter-y-md" style="max-width: 600px">
               <q-tabs
@@ -47,9 +47,9 @@ export default {
                   <q-tab name="home" label="Home"></q-tab>
                 </router-link>
 
-                <router-link to="/home/search">
+                <!-- <router-link to="/home/search">
                   <q-tab name="Amigos" label="Amigos"></q-tab>
-                </router-link>
+                </router-link> -->
 
                 <Notification />
               </q-tabs>

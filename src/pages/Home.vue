@@ -1,18 +1,19 @@
 <script>
 import { onMounted, onUpdated, ref } from 'vue-demi'
-import Login from '../components/Login.vue'
-import User from '../components/User.vue'
 import NavBar from '../layouts/NavBar.vue'
 import useStore from 'src/stores/store'
-import SearchFriends from 'src/layouts/SearchFriends.vue'
 import ModalsResquet from 'src/components/ModalsResquet.vue'
+import SearchFriends from 'src/layouts/SearchFriends.vue'
+import FriendsView from 'src/components/FriendsView.vue'
 
 export default {
   name: 'Home',
   components: {
     NavBar,
     SearchFriends,
-    ModalsResquet
+    ModalsResquet,
+    SearchFriends,
+    FriendsView
 },
   setup(){
     const use = useStore()
@@ -33,10 +34,14 @@ export default {
   <div class="home">
         <NavBar />
         <div class="modalItem">
-          <div class="bodyHome">
+          <!-- <div class="bodyHome">
             <router-view/>
-          </div>
+          </div> -->
           <ModalsResquet v-if="use.modal" />
+        </div>
+        <div class="bodyHome">
+          <SearchFriends />
+          <FriendsView />
         </div>
   </div>
 </template>
@@ -57,6 +62,7 @@ export default {
 
   .modalItem{
     display: flex;
+    z-index: 1200;
     justify-content: end;
     margin: 5rem 0;
   }

@@ -6,15 +6,18 @@ export default {
   setup() {
     const use = useStore()
     const myUser = ref(Object)
+    const myID = ref(null)
 
     onMounted(async () => {
-      myUser.value = await use.verifyResquet()
+      myUser.value = await use.verifyRequest()
 
-      // console.log(typeof use.friendsReceivedResquet)
-      console.log(use.friendsReceivedResquet)
+      // console.log(typeof use.friendsReceivedRequest)
+      myID.value = myUser.value.data[0].uid
+      console.log(myUser.value)
     })
     return {
-      use
+      use,
+      myID
     };
   },
 };
@@ -31,16 +34,16 @@ export default {
         </div>
 
         <q-card-section class="scroll" id="contentSection">
-          <div class="contentUser" v-for="user in use.friendsReceivedResquet.data" :key="user._id">
-            <q-card class="bodyUserResquet">
+          <div class="contentUser" v-for="user in use.friendsReceivedRequest.data" :key="user._id">
+            <q-card class="bodyUserResquet" v-if="user.friends?.includes(myID)">
                 <div class="contentName">
                   <h4>
                     {{user.name}}
                   </h4>
                 </div>
                 <div class="iconContent">
-                    <q-btn >
-                      <q-icon name="done_outline" color="positive" size="2rem"  />
+                    <q-btn @click="use.acceptFriends(user._id)" >
+                      <q-icon name="done_outline" color="positive" size="2rem" />
                     </q-btn>
                     <q-btn>
                       <q-icon name="cancel" color="red" size="2rem"  />

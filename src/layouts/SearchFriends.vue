@@ -4,18 +4,18 @@ import { ref } from "@vue/reactivity";
 import { onMounted, onUpdated, watch } from "@vue/runtime-core";
 import getOptions from "../api/dataBase";
 import useStore from "src/stores/store";
-import { uid, useQuasar } from 'quasar'
+import { useQuasar } from 'quasar'
 
 export default {
   setup() {
     const use = useStore();
     const token = localStorage.getItem("token");
     const $q = useQuasar()
-    const statusResquet = ref(false)
+    const statusRequest = ref(false)
     const myID = ref('')
     const getMyID = ref(Object)
 
-    const sendResquet = async (uid) => {
+    const sendRequest = async (uid) => {
         try{
           const resquet_send = await getOptions.post("resquet_send",
           { friendID: uid },
@@ -39,30 +39,20 @@ export default {
       }
       }
 
-
     //peticion del usuario al montarse
 
     onMounted(async () => {
 
-      getMyID.value = await use.verifyResquet()
+      getMyID.value = await use.myUser()
 
       myID.value = getMyID.value.data[0].uid
-
-      use.friendsData.forEach(element => {
-        if(element.request_received.indexOf(myID.value) > -1){
-          element.statusResquet = true
-        }else {
-          element.statusResquet = false
-        }
-        return element
-      })
 
     })
 
     return {
       use,
-      sendResquet,
-      statusResquet,
+      sendRequest,
+      statusRequest,
       myID,
       getMyID
     }
@@ -71,36 +61,40 @@ export default {
 </script>
 
 <template>
-  <q-card class="bodySearch">
+  <div class="bodySearch">
     <div class="inputContent">
       <div>
         <q-input outlined label="Search Friends" v-model="use.friendsSearch" />
       </div>
     </div>
-    <q-card-section
-      class="resultFriends"
-      v-for="friend in use.friendsUpdate()"
-      :key="friend.uid"
-    >
-      <q-card  class="bodyResult" >
-        <div class="descriptContent">
-          <div class="nameContent">
-            <h3>{{ friend.name }}</h3>
-          </div>
-          <div>
-            <q-icon name="person_add" size="3rem" @click="sendResquet(friend.uid)" v-if="!friend.request_received.includes(myID)"/>
-            <q-icon name="how_to_reg" color="positive" size="3rem" v-else/>
 
+    <div v-if="use.friendsSearch">
+      <q-card-section
+        class="resultFriends"
+        v-for="friend in use.friendsUpdate()"
+        :key="friend.uid"
+      >
+        <q-card  class="bodyResult" v-if="!friend.friends?.includes(myID) || !friend.request_send?.includes(myID)" >
+          <div class="descriptContent">
+            <div class="nameContent" >
+              <h3>{{ friend.name }}</h3>
+            </div>
+            <div>
+              <q-icon name="person_add" size="3rem" @click="sendRequest(friend.uid)" v-if="!friend.request_received.includes(myID)"/>
+              <q-icon name="how_to_reg" color="positive" size="3rem" v-else/>
+
+            </div>
           </div>
-        </div>
-      </q-card>
-    </q-card-section>
-  </q-card>
+        </q-card>
+      </q-card-section>
+    </div>
+  </div>
 </template>
 
 <style scoped>
 .bodySearch {
   width: 80%;
+  min-height: 5rem;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
