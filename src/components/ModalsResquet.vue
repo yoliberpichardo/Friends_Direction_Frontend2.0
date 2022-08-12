@@ -9,11 +9,10 @@ export default {
     const myID = ref(null)
 
     onMounted(async () => {
-      myUser.value = await use.verifyRequest()
-
-      // console.log(typeof use.friendsReceivedRequest)
+      myUser.value = await use.myUser()
+      // console.log(use.friendsReceivedRequest.data[0])
       myID.value = myUser.value.data[0].uid
-      console.log(myUser.value)
+      // console.log(myUser.value)
     })
     return {
       use,
@@ -35,7 +34,7 @@ export default {
 
         <q-card-section class="scroll" id="contentSection">
           <div class="contentUser" v-for="user in use.friendsReceivedRequest.data" :key="user._id">
-            <q-card class="bodyUserResquet" v-if="user.friends?.includes(myID)">
+            <q-card class="bodyUserResquet" v-if="!user.friends?.includes(myID)">
                 <div class="contentName">
                   <h4>
                     {{user.name}}

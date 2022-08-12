@@ -3,8 +3,8 @@ import { onMounted, onUpdated, ref } from 'vue-demi'
 import NavBar from '../layouts/NavBar.vue'
 import useStore from 'src/stores/store'
 import ModalsResquet from 'src/components/ModalsResquet.vue'
-import SearchFriends from 'src/layouts/SearchFriends.vue'
-import FriendsView from 'src/components/FriendsView.vue'
+import SearchFriends from 'src/components/Friends/ResultFriends.vue'
+import FriendsView from 'src/components/Friends/FriendsView.vue'
 
 export default {
   name: 'Home',
@@ -34,14 +34,13 @@ export default {
   <div class="home">
         <NavBar />
         <div class="modalItem">
-          <!-- <div class="bodyHome">
-            <router-view/>
-          </div> -->
           <ModalsResquet v-if="use.modal" />
         </div>
         <div class="bodyHome">
-          <SearchFriends />
-          <FriendsView />
+          <div class="contentFriends">
+            <FriendsView />
+            <SearchFriends v-if="use.friendsSearch"/>
+          </div>
         </div>
   </div>
 </template>
@@ -65,6 +64,11 @@ export default {
     z-index: 1200;
     justify-content: end;
     margin: 5rem 0;
+  }
+
+  .contentFriends {
+    display: flex;
+    flex-direction: column;
   }
 
 </style>

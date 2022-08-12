@@ -2,7 +2,7 @@
 <script>
 import { ref } from "@vue/reactivity";
 import { onMounted, onUpdated, watch } from "@vue/runtime-core";
-import getOptions from "../api/dataBase";
+import getOptions from "../../api/dataBase";
 import useStore from "src/stores/store";
 import { useQuasar } from 'quasar'
 
@@ -62,12 +62,6 @@ export default {
 
 <template>
   <div class="bodySearch">
-    <div class="inputContent">
-      <div>
-        <q-input outlined label="Search Friends" v-model="use.friendsSearch" />
-      </div>
-    </div>
-
     <div v-if="use.friendsSearch">
       <q-card-section
         class="resultFriends"
@@ -90,16 +84,16 @@ export default {
     </div>
   </div>
 </template>
-
-<style scoped>
-.bodySearch {
+<!-- <style scoped>
+ .bodySearch {
   width: 80%;
   min-height: 5rem;
   display: flex;
+  padding: 16px;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  /* margin: 3.1rem 0 0 0; */
+  margin: 3.1rem 0 0 0;
   color: #000;
 }
 
@@ -143,4 +137,4 @@ export default {
   .nameContent h3{
     font-size: 1.8rem;
   }
-</style>
+</style> -->

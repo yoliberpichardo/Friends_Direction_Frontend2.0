@@ -9,7 +9,7 @@ export default {
 
     onMounted(async () => {
       dataMyUser.value = await use.myUser()
-      console.log(dataMyUser.value);
+      // console.log(dataMyUser.value);
     })
 
     return{
@@ -20,31 +20,25 @@ export default {
 }
  </script>
 <template>
-  <div class="homeFriends">
+  <div class="inputContent">
+      <q-input outlined label="Search Friends" v-model="use.friendsSearch" />
+  </div>
+  <div class="homeFriends" v-if="!use.friendsSearch">
     <div class="titleContent">
       <h4>Amigos</h4>
     </div>
-    <q-card-section
-      class="resultFriends"
-      v-for="friend in dataMyUser.data"
-      :key="friend.uid"
-    >
-      <q-card  class="bodyResult"  >
-        <div class="descriptContent">
-          <div class="nameContent">
-            <h3>{{ friend.name }}</h3>
-            <p>19.499832, -70.741350</p>
-          </div>
-          <div>
-            <q-icon  name="share_location" :icon="'ion-ios-gear-outline'" size="2.7rem" />
-          </div>
-        </div>
-      </q-card>
-    </q-card-section>
+    <div class="titleContent">
+      <h4>Publico</h4>
+    </div>
   </div>
 </template>
 
 <style>
+
+
+.titleContent {
+  margin: 2rem 0 0 0;
+}
 
 .bodyResult{
   width: 28rem;
@@ -67,5 +61,6 @@ export default {
   .nameContent h3{
     font-size: 1.8rem;
   }
+
 
 </style>
