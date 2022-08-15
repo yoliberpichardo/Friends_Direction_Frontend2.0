@@ -5,10 +5,11 @@ const useStore = defineStore('storeID', {
   state: () => {
     return {
       friendsData: [],
-      friendsSearch: '',
+      usersAvaible: {},
       token: localStorage.getItem('token'),
       friendsReceivedRequest: [],
-      modal: false
+      modal: false,
+      map: null
     }
   },
   actions: {
@@ -17,13 +18,15 @@ const useStore = defineStore('storeID', {
      *
      * @returns list of friends search
      */
-    friendsUpdate() {
-      if (this.friendsSearch) {
-        return this.friendsData.filter((element) => {
-          return String(element["name"]).includes(this.friendsSearch)
-        })
-      }
-      return this.friendsData
+    async getAllAvailableUsers(search = "") {
+      this.usersAvaible = await (await getOptions.get('dataAll', {
+        params:{
+          q: search
+        },
+        headers: {
+          authorization: `bearer ${this.token}`
+        }
+      })).data
     },
 
     /**
@@ -69,8 +72,6 @@ const useStore = defineStore('storeID', {
           authorization: `bearer ${this.token}`,
         },
       })).data
-
-      return this.friendsReceivedRequest
     },
     /**
      *

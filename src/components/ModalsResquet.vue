@@ -56,10 +56,6 @@ export default {
 </template>
 
 <style scoped>
-  #bodyModal{
-    display: flex;
-    position: fixed;
-  }
 
   .contentCard {
     width: 28rem;

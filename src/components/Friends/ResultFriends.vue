@@ -11,7 +11,6 @@ export default {
     const use = useStore();
     const token = localStorage.getItem("token");
     const $q = useQuasar()
-    const statusRequest = ref(false)
     const myID = ref('')
     const getMyID = ref(Object)
 
@@ -52,7 +51,6 @@ export default {
     return {
       use,
       sendRequest,
-      statusRequest,
       myID,
       getMyID
     }
@@ -60,12 +58,12 @@ export default {
 };
 </script>
 
-<template>
+<!-- <template>
   <div class="bodySearch">
     <div v-if="use.friendsSearch">
       <q-card-section
         class="resultFriends"
-        v-for="friend in use.friendsUpdate()"
+        v-for="friend in
         :key="friend.uid"
       >
         <q-card  class="bodyResult" v-if="!friend.friends?.includes(myID) || !friend.request_send?.includes(myID)" >
@@ -83,7 +81,7 @@ export default {
       </q-card-section>
     </div>
   </div>
-</template>
+</template> -->
 <!-- <style scoped>
  .bodySearch {
   width: 80%;

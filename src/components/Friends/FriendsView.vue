@@ -1,66 +1,60 @@
 <script>
 import useStore from 'src/stores/store'
-import { onMounted, ref } from 'vue-demi'
+import { onMounted, ref, watch } from 'vue-demi'
+import CardFriends from './CardFriends.vue'
 export default {
-  setup(){
-    const use = useStore()
-    const dataMyUser = ref(Object)
+    setup() {
+        const use = useStore();
+        const dataMyUser = ref(Object);
+        const search = ref('')
 
+        onMounted(async () => {
+            dataMyUser.value = await use.myUser();
+            // console.log(dataMyUser.value);
+        });
 
-    onMounted(async () => {
-      dataMyUser.value = await use.myUser()
-      // console.log(dataMyUser.value);
-    })
+        watch(search, async () =>{
+          await use.getAllAvailableUsers(search.value)
+          console.log(use.usersAvaible);
+        })
 
-    return{
-      use,
-      dataMyUser
-    }
-  }
+        return {
+            use,
+            dataMyUser,
+            search
+        };
+    },
+    components: { CardFriends}
 }
  </script>
 <template>
   <div class="inputContent">
-      <q-input outlined label="Search Friends" v-model="use.friendsSearch" />
+      <q-input outlined label="Search Friends" v-model="search" />
   </div>
-  <div class="homeFriends" v-if="!use.friendsSearch">
-    <div class="titleContent">
+  <div class="homeFriends">
+    <div class="titleContent" v-if="use.usersAvaible?.dataFriends?.length">
       <h4>Amigos</h4>
+        <CardFriends  v-for="user in use.usersAvaible.dataFriends" :key="user.uid" :data="user" />
     </div>
-    <div class="titleContent">
+    <div class="titleContent" v-if="use.usersAvaible?.dataPublic?.length">
       <h4>Publico</h4>
+        <CardFriends v-for="user in use.usersAvaible.dataPublic" :key="user.uid" :data="user" />
     </div>
   </div>
 </template>
 
 <style>
 
+.inputContent, .homeFriends{
+  width: 90%;
+  margin: 0 auto;
+}
 
 .titleContent {
   margin: 2rem 0 0 0;
 }
 
-.bodyResult{
-  width: 28rem;
-  height: 5.7rem;
-  margin: 1rem auto;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+.titleContent h4{
+  font-weight: bold;
 }
-
-  .descriptContent {
-    width: 90%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .nameContent h3{
-    font-size: 1.8rem;
-  }
-
-
 </style>

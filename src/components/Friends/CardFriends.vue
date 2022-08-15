@@ -1,13 +1,32 @@
+<script>
+import { onMounted, ref } from 'vue-demi'
+import useStore from "src/stores/store";
+  export default {
+    props:[
+      'data'
+    ],
+    setup(props){
+      const user = ref(props.data)
+      const use = useStore();
+
+      onMounted(() => {
+        user.value = props.data
+        console.log(user.value);
+      })
+
+    return {
+      use,
+      user
+      }
+    }
+  }
+</script>
 <template>
-  <q-card-section
-      class="resultFriends"
-      v-for="friend in dataMyUser.data"
-      :key="friend.uid"
-  >
+  <q-card-section class="resultFriends">
     <q-card  class="bodyResult"  >
       <div class="descriptContent">
         <div class="nameContent">
-          <h3>Perfil privado</h3>
+          <h3>{{user.name}}</h3>
           <p>19.499832, -70.741350</p>
         </div>
         <div>
@@ -18,12 +37,26 @@
   </q-card-section>
 </template>
 
-<script>
-export default {
 
+<style scope>
+
+.resultFriends{
+  padding: 0;
+  margin: 10px 0;
 }
-</script>
 
-<style>
+.descriptContent{
+  display: flex;
+  padding: 8px 16px;
+  justify-content: space-between;
+  align-items: center;
+}
+.nameContent h3{
+  font-size: 30px;
+  font-weight: 400;
+}
+.nameContent p{
+  margin: 0;
+}
 
 </style>
