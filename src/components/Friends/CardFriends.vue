@@ -11,7 +11,6 @@ import useStore from "src/stores/store";
 
       onMounted(() => {
         user.value = props.data
-        console.log(user.value);
       })
 
     return {

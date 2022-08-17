@@ -3,9 +3,10 @@ import { onMounted, onUpdated, ref } from 'vue-demi'
 import NavBar from '../layouts/NavBar.vue'
 import useStore from 'src/stores/store'
 import ModalsResquet from 'src/components/ModalsResquet.vue'
-import SearchFriends from 'src/components/Friends/ResultFriends.vue'
+import SearchFriends from 'src/components/Friends/RequestFriends.vue'
 import FriendsView from 'src/components/Friends/FriendsView.vue'
 import MapBody from 'src/components/MapBody.vue'
+import RequestFriends from 'src/components/Friends/RequestFriends.vue'
 
 export default {
   name: 'Home',
@@ -13,7 +14,8 @@ export default {
     NavBar,
     ModalsResquet,
     FriendsView,
-    MapBody
+    MapBody,
+    RequestFriends
 },
   setup(){
     const use = useStore()
@@ -38,12 +40,12 @@ export default {
         </div>
         <div class="bodyHome">
           <div class="contentFriends">
+            <!-- <RequestFriends/> -->
             <FriendsView />
           </div>
           <div class="bodyMap">
             <div class="contentInfo">
               <h2>info usuario</h2>
-
             </div>
             <div class="contentMap">
               <MapBody />

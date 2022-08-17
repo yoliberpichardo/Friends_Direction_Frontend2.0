@@ -10,7 +10,7 @@ export default {
 
     onMounted(async () => {
       myUser.value = await use.myUser()
-      // console.log(use.friendsReceivedRequest.data[0])
+      console.log(use.friendsReceivedRequest.data[0])
       myID.value = myUser.value.data[0].uid
       // console.log(myUser.value)
     })

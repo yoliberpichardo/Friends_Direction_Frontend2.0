@@ -9,7 +9,8 @@ const useStore = defineStore('storeID', {
       token: localStorage.getItem('token'),
       friendsReceivedRequest: [],
       modal: false,
-      map: null
+      map: null,
+      usersResquet: []
     }
   },
   actions: {
@@ -20,6 +21,17 @@ const useStore = defineStore('storeID', {
      */
     async getAllAvailableUsers(search = "") {
       this.usersAvaible = await (await getOptions.get('dataAll', {
+        params:{
+          q: search
+        },
+        headers: {
+          authorization: `bearer ${this.token}`
+        }
+      })).data
+    },
+
+    async getUsersByID(search = "") {
+      this.usersResquet = await (await getOptions.get('get_users', {
         params:{
           q: search
         },
@@ -67,7 +79,7 @@ const useStore = defineStore('storeID', {
      */
 
     async getUsers(usersID) {
-      this.friendsReceivedRequest = await (await getOptions.post('get_users',{usersID}, {
+      this.friendsReceivedRequest = await (await getOptions.post('search_users',{usersID}, {
         headers: {
           authorization: `bearer ${this.token}`,
         },
