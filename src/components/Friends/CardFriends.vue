@@ -6,7 +6,7 @@ import useStore from "src/stores/store";
       'data'
     ],
     setup(props){
-      const user = ref(props.data)
+      const user = ref('')
       const use = useStore();
 
       onMounted(() => {
@@ -14,16 +14,16 @@ import useStore from "src/stores/store";
       })
 
     return {
-      use,
-      user
+        use,
+        user
       }
     }
   }
 </script>
 <template>
   <q-card-section class="resultFriends">
-    <q-card  class="bodyResult"  >
-      <div class="descriptContent">
+    <q-card  class="bodyResult" >
+      <div class="descriptContent"  v-if="use.myID[0].uid !== user.uid">
         <div class="nameContent">
           <h3>{{user.name}}</h3>
           <p>19.499832, -70.741350</p>

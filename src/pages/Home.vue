@@ -22,6 +22,7 @@ export default {
 
     onMounted(async () => {
       use.friendsData = await use.friendsGet()
+      await use.myUser()
       await use.getAllAvailableUsers()
     })
 
@@ -40,7 +41,7 @@ export default {
         </div>
         <div class="bodyHome">
           <div class="contentFriends">
-            <!-- <RequestFriends/> -->
+            <RequestFriends/>
             <FriendsView />
           </div>
           <div class="bodyMap">

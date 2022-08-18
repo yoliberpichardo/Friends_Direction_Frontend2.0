@@ -9,21 +9,21 @@
       const use = useStore()
 
       onMounted(async () => {
-        const [long, lat] = await getUsersLocation()
+        const [longitud, latitud] = await getUsersLocation()
 
         mapboxgl.accessToken = 'pk.eyJ1Ijoib3NjYXIxMjAwMiIsImEiOiJjbDZ2N3l0NHQyMmZ0M2pvYXBza3Eya20wIn0.q5aFgPhzm3_guUlI5Rv8NQ';
 
         const map = new Map({
           container: 'map', // container ID
           style: 'mapbox://styles/mapbox/streets-v11', // style URL
-          center: [long,lat], // starting position [lng, lat]
+          center: [longitud,latitud], // starting position [lng, lat]
           zoom: 15, // starting zoom
           projection: 'globe' // display the map as a 3D globe
         });
 
         map.on('load', () => {
           new Marker({ color: '#0009', anchor: 'center' })
-            .setLngLat([long, lat])
+            .setLngLat([longitud, latitud])
             .addTo(map)
         })
 
@@ -31,14 +31,7 @@
 
       })
 
-
-      // watch(use.map,() => {
-      //   if(use.map){
-
-      //   }
-      //   } )
     }
-
     }
 </script>
 

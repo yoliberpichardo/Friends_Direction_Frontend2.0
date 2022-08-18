@@ -5,22 +5,15 @@ import CardFriends from './CardFriends.vue'
 export default {
     setup() {
         const use = useStore();
-        const dataMyUser = ref(Object);
         const search = ref('')
 
-        onMounted(async () => {
-            dataMyUser.value = await use.myUser();
-            // console.log(dataMyUser.value);
-        });
 
         watch(search, async () =>{
           await use.getAllAvailableUsers(search.value)
-          console.log(use.usersAvaible);
         })
 
         return {
             use,
-            dataMyUser,
             search
         };
     },
@@ -38,7 +31,7 @@ export default {
     </div>
     <div class="titleContent" v-if="use.usersAvaible?.dataPublic?.length">
       <h4>Publico</h4>
-        <CardFriends v-for="user in use.usersAvaible.dataPublic" :key="user.uid" :data="user" />
+        <CardFriends v-for="user in use.usersAvaible.dataPublic" :key="user.uid" :data="user"/>
     </div>
   </div>
 </template>

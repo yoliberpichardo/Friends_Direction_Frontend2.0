@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import getOptions from '../api/dataBase'
+import { useQuasar } from 'quasar'
 
 const useStore = defineStore('storeID', {
   state: () => {
@@ -10,7 +11,9 @@ const useStore = defineStore('storeID', {
       friendsReceivedRequest: [],
       modal: false,
       map: null,
-      usersResquet: []
+      usersResquet: [],
+      $q: useQuasar(),
+      myID: null
     }
   },
   actions: {
@@ -58,11 +61,13 @@ const useStore = defineStore('storeID', {
      * @returns my user
      */
     async myUser() {
-      return await (await getOptions.get('myuser', {
+      this.myID = await (await getOptions.get('myuser', {
         headers: {
           authorization: `bearer ${this.token}`,
         },
-      })).data
+      })).data.data
+
+      return this.myID
     },
     async friendsNumber() {
       return await (await getOptions.get('number_friends', {
@@ -91,11 +96,53 @@ const useStore = defineStore('storeID', {
      * @returns object if request is accepted
      */
     async acceptFriends(userID){
-      return await (await getOptions.put('accept_friend',{userID}, {
+      try{
+        const accept = await (await getOptions.put('accept_friend',{userID}, {
         headers: {
           authorization: `bearer ${this.token}`,
         },
       })).data
+      this.$q.notify({
+        type: 'positive',
+        message: resquet_send.data.msg
+
+      })
+
+      return accept
+
+      } catch {
+        this.$q.notify({
+          type: 'negative',
+          message: 'no se pudo aceptar la solicitud'
+        })
+      }
+    },
+
+    /**
+     *
+     * @param {received ID users} userID
+     * @returns object request decline
+     */
+    async declineRequest(userID){
+     try{
+      const decline = await (await getOptions.put('decline_request',{userID}, {
+        headers: {
+          authorization: `bearer ${this.token}`,
+        },
+      })).data
+      this.$q.notify({
+        type: 'positive',
+        message: resquet_send.data.msg
+
+      })
+
+      return decline
+    } catch {
+      this.$q.notify({
+        type: 'negative',
+        message: 'no se pudo cancelar la solicitud'
+      })
+    }
     },
 
   }
