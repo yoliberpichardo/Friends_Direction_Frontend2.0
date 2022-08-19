@@ -1,30 +1,30 @@
 
 const routes = [
   {
-    path:'/login',
+    path: '/login',
     name: 'Login',
     component: () => import('components/Login.vue'),
-    meta : { requiresAuth: false },
+    meta: { requiresAuth: false },
   },
   {
-    path:'/register',
+    path: '/register',
     name: 'Register',
     component: () => import('components/Register.vue')
   },
   {
     path: '/home',
-    name: 'Home',
+    name: 'home',
     component: () => import('pages/Home.vue'),
-    meta : { requiresAuth: true },
-    // children:[
-    //   {
-    //     path: 'search',
-    //     name: 'Search',
-    //     component: () => import('layouts/SearchFriends.vue'),
-    //     meta : { requiresAuth: true },
+    meta: {
+      requiresAuth: true
+    },
+  },
 
-    //   },
-    // ]
+  {
+    path: '/perfil',
+    name: 'perfil',
+    component: () => import('components/Perfil/MyPerfil.vue'),
+    meta: { requiresAuth: true },
   },
   {
     path: '/:catchAll(.*)*',

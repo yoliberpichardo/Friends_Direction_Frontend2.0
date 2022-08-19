@@ -1,43 +1,20 @@
+
 <script>
-import { onMounted, onUpdated, ref } from "vue-demi";
-import useStore from "src/stores/store";
-import FriendsView from "src/components/Friends/FriendsView.vue";
-import MapBody from "src/components/MapBody.vue";
-import RequestFriends from "src/components/Friends/RequestFriends.vue";
-import Layout from "src/layouts/Layout.vue";
-
+import Layout from 'src/layouts/Layout.vue';
+import RequestFriends from '../Friends/RequestFriends.vue';
+import MapBody from '../MapBody.vue';
 export default {
-  name: "Home",
-  components: {
-    FriendsView,
-    MapBody,
-    RequestFriends,
-    Layout,
-    FriendsView,
-  },
-  setup() {
-    const use = useStore();
-
-    onMounted(async () => {
-      use.friendsData = await use.friendsGet();
-      await use.myUser();
-      await use.getAllAvailableUsers();
-    });
-
-    return {
-      use,
-    };
-  },
-};
+    components: { Layout, RequestFriends, MapBody }
+}
 </script>
 
 <template>
   <Layout>
     <template v-slot:content>
-      <div class="home">
-        <div class="bodyHome">
-          <div class="contentFriends">
-            <FriendsView />
+      <div class="perfil">
+        <div class="bodyPerfil">
+          <div class="contentRequest">
+            <RequestFriends />
           </div>
           <div class="bodyMap">
             <div class="contentInfo">
@@ -54,13 +31,13 @@ export default {
 </template>
 
 <style scoped>
-.home {
+.perfil {
   width: 100%;
   position: relative;
   display: flex;
   flex-direction: column;
 }
-.bodyHome {
+.bodyPerfil {
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -75,7 +52,7 @@ export default {
   top: 50px;
 }
 
-.contentFriends {
+.contentRequest {
   width: 30%;
   height: calc(100vh - 5rem);
   display: flex;

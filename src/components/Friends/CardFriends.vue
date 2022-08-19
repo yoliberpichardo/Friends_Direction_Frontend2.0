@@ -38,6 +38,9 @@ import useStore from "src/stores/store";
 
 
 <style scope>
+.bodyResult{
+  width: 100%;
+}
 
 .resultFriends{
   padding: 0;
@@ -45,6 +48,7 @@ import useStore from "src/stores/store";
 }
 
 .descriptContent{
+  width: 100%;
   display: flex;
   padding: 8px 16px;
   justify-content: space-between;

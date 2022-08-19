@@ -1,17 +1,22 @@
 <script>
 import useStore from 'src/stores/store'
-import { ref } from 'vue-demi'
+import { onMounted, ref } from 'vue-demi'
 import Notification from 'src/components/Notification.vue'
+import router from 'src/router';
+
 
 export default {
     setup() {
         const use = useStore();
         const viewSearch = ref(false);
         const viewMenu = ref(false);
+        const tab = ref(router.currentRoute.value.name)
+        
         return {
             use,
             viewSearch,
             viewMenu,
+            tab
         };
     },
     components: { Notification }
@@ -41,15 +46,16 @@ export default {
           <div class="q-pa-md" >
             <div class="q-gutter-y-md" style="max-width: 600px">
               <q-tabs
+                v-model="tab"
                 narrow-indicator
               >
                 <router-link to="/home">
                   <q-tab name="home" label="Home"></q-tab>
                 </router-link>
 
-                <!-- <router-link to="/home/search">
-                  <q-tab name="Amigos" label="Amigos"></q-tab>
-                </router-link> -->
+                <router-link to="/perfil">
+                  <q-tab name="perfil" label="perfil" ></q-tab>
+                </router-link>
 
                 <Notification />
               </q-tabs>
