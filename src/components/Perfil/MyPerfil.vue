@@ -1,27 +1,43 @@
 
 <script>
-import Layout from 'src/layouts/Layout.vue';
-import RequestFriends from '../Friends/RequestFriends.vue';
-import MapBody from '../MapBody.vue';
+import Layout from "src/layouts/Layout.vue";
+import RequestFriends from "../Friends/RequestFriends.vue";
+import ModalsResquet from "../ModalsResquet.vue";
+import useStore from 'src/stores/store';
+import MyInfo from "./MyInfo.vue";
+import MapMyPerfil from "../Maps/MapMyPerfil.vue";
 export default {
-    components: { Layout, RequestFriends, MapBody }
-}
+  components: { Layout, RequestFriends, ModalsResquet, MyInfo, MapMyPerfil },
+  setup(){
+    const use = useStore()
+
+    return{
+      use
+    }
+  }
+};
 </script>
 
 <template>
   <Layout>
     <template v-slot:content>
       <div class="perfil">
+        <div class="modalItem" v-if="use.modal">
+          <ModalsResquet />
+        </div>
+        <div class="modalItem" v-if="use.modalRequest">
+          <RequestFriends />
+        </div>
         <div class="bodyPerfil">
-          <div class="contentRequest">
-            <RequestFriends />
-          </div>
+            <div class="contentMyInfo">
+              <MyInfo />
+            </div>
           <div class="bodyMap">
             <div class="contentInfo">
               <h2>info usuario</h2>
             </div>
             <div class="contentMap">
-              <MapBody />
+              <MapMyPerfil />
             </div>
           </div>
         </div>
@@ -52,7 +68,7 @@ export default {
   top: 50px;
 }
 
-.contentRequest {
+.contentMyInfo {
   width: 30%;
   height: calc(100vh - 5rem);
   display: flex;

@@ -10,7 +10,9 @@ const useStore = defineStore('storeID', {
       token: localStorage.getItem('token'),
       friendsReceivedRequest: [],
       modal: false,
-      map: null,
+      modalRequest: false,
+      mapHome: null,
+      mapPerfil: null,
       usersResquet: [],
       $q: useQuasar(),
       myID: null
@@ -24,7 +26,7 @@ const useStore = defineStore('storeID', {
      */
     async getAllAvailableUsers(search = "") {
       this.usersAvaible = await (await getOptions.get('dataAll', {
-        params:{
+        params: {
           q: search
         },
         headers: {
@@ -35,7 +37,7 @@ const useStore = defineStore('storeID', {
 
     async getUsersByID(search = "") {
       this.usersResquet = await (await getOptions.get('get_users', {
-        params:{
+        params: {
           q: search
         },
         headers: {
@@ -69,6 +71,7 @@ const useStore = defineStore('storeID', {
 
       return this.myID
     },
+    
     async friendsNumber() {
       return await (await getOptions.get('number_friends', {
         headers: {
@@ -77,14 +80,14 @@ const useStore = defineStore('storeID', {
       })).data
     },
 
-     /**
-     *
-     * @param {received ID users} userID
-     * @returns objects friends
-     */
+    /**
+    *
+    * @param {received ID users} userID
+    * @returns objects friends
+    */
 
     async getUsers(usersID) {
-      this.friendsReceivedRequest = await (await getOptions.post('search_users',{usersID}, {
+      this.friendsReceivedRequest = await (await getOptions.post('search_users', { usersID }, {
         headers: {
           authorization: `bearer ${this.token}`,
         },
@@ -95,20 +98,20 @@ const useStore = defineStore('storeID', {
      * @param {received ID users} userID
      * @returns object if request is accepted
      */
-    async acceptFriends(userID){
-      try{
-        const accept = await (await getOptions.put('accept_friend',{userID}, {
-        headers: {
-          authorization: `bearer ${this.token}`,
-        },
-      })).data
-      this.$q.notify({
-        type: 'positive',
-        message: resquet_send.data.msg
+    async acceptFriends(userID) {
+      try {
+        const accept = await (await getOptions.put('accept_friend', { userID }, {
+          headers: {
+            authorization: `bearer ${this.token}`,
+          },
+        })).data
+        this.$q.notify({
+          type: 'positive',
+          message: accept.data.msg
 
-      })
+        })
 
-      return accept
+        return accept
 
       } catch {
         this.$q.notify({
@@ -123,27 +126,51 @@ const useStore = defineStore('storeID', {
      * @param {received ID users} userID
      * @returns object request decline
      */
-    async declineRequest(userID){
-     try{
-      const decline = await (await getOptions.put('decline_request',{userID}, {
-        headers: {
-          authorization: `bearer ${this.token}`,
-        },
-      })).data
-      this.$q.notify({
-        type: 'positive',
-        message: resquet_send.data.msg
+    async declineRequest(userID) {
+      try {
+        const decline = await (await getOptions.put('decline_request', { userID }, {
+          headers: {
+            authorization: `bearer ${this.token}`,
+          },
+        })).data
+        this.$q.notify({
+          type: 'positive',
+          message: decline.data.msg
 
-      })
+        })
 
-      return decline
-    } catch {
-      this.$q.notify({
-        type: 'negative',
-        message: 'no se pudo cancelar la solicitud'
-      })
-    }
+        return decline
+      } catch {
+        this.$q.notify({
+          type: 'negative',
+          message: 'no se pudo cancelar la solicitud'
+        })
+      }
     },
+
+    async registerDirection (direction) {
+      try{
+        const register = await (await getOptions.put('decline_request', { direction }, {
+          headers: {
+            authorization: `bearer ${this.token}`,
+          },
+        })).data
+
+        this.$q.notify({
+          type: 'positive',
+          message: register.data.msg
+
+        })
+
+        return register
+
+      } catch {
+        this.$q.notify({
+          type: 'negative',
+          message: 'no se pudo registrar su direccion'
+        })
+      }
+    }
 
   }
 })

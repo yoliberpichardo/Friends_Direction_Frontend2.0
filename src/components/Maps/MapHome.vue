@@ -1,9 +1,9 @@
 
   <script>
     import mapboxgl, {Map,Marker} from 'mapbox-gl'; // or "const mapboxgl = require('mapbox-gl');"
-    import { onMounted, watch } from 'vue-demi';
+    import { onMounted } from 'vue-demi';
     import useStore from 'src/stores/store';
-    import {getUsersLocation} from '../helpers/getUsersLocation'
+    import {getUsersLocation} from '../../helpers/getUsersLocation'
     export default {
     setup() {
       const use = useStore()
@@ -27,7 +27,7 @@
             .addTo(map)
         })
 
-        use.map = map
+        use.mapHome = map
 
       })
 

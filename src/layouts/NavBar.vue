@@ -11,7 +11,7 @@ export default {
         const viewSearch = ref(false);
         const viewMenu = ref(false);
         const tab = ref(router.currentRoute.value.name)
-        
+
         return {
             use,
             viewSearch,
@@ -58,6 +58,8 @@ export default {
                 </router-link>
 
                 <Notification />
+
+                <q-btn dense color="blue" round icon="person_search" class="q-ml-md" @click="use.modalRequest = !use.modalRequest"/>
               </q-tabs>
             </div>
           </div>

@@ -1,5 +1,4 @@
 <script>
-import { onMounted, ref } from "vue";
 import useStore from 'src/stores/store';
 
 export default {

@@ -2,9 +2,10 @@
 import { onMounted, onUpdated, ref } from "vue-demi";
 import useStore from "src/stores/store";
 import FriendsView from "src/components/Friends/FriendsView.vue";
-import MapBody from "src/components/MapBody.vue";
+import MapBody from "src/components/Maps/MapHome.vue";
 import RequestFriends from "src/components/Friends/RequestFriends.vue";
 import Layout from "src/layouts/Layout.vue";
+import ModalsResquet from "src/components/ModalsResquet.vue";
 
 export default {
   name: "Home",
@@ -14,7 +15,8 @@ export default {
     RequestFriends,
     Layout,
     FriendsView,
-  },
+    ModalsResquet
+},
   setup() {
     const use = useStore();
 
@@ -35,6 +37,12 @@ export default {
   <Layout>
     <template v-slot:content>
       <div class="home">
+        <div class="modalItem" v-if="use.modal">
+          <ModalsResquet />
+        </div>
+        <div class="modalItem" v-if="use.modalRequest">
+          <RequestFriends />
+        </div>
         <div class="bodyHome">
           <div class="contentFriends">
             <FriendsView />

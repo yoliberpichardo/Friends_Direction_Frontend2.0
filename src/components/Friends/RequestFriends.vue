@@ -6,89 +6,104 @@ import useStore from "src/stores/store";
 import CardRequest from "./CardRequest.vue";
 
 export default {
-    setup() {
-        const use = useStore();
-        const search = ref("");
-        watch(search, async () => {
-            await use.getUsersByID(search.value);
-        });
-        //peticion del usuario al montarse
-        return {
-            use,
-            search
-        };
-    },
-    components: { CardRequest }
+  setup() {
+    const use = useStore();
+    const search = ref("");
+    const viewSearch = ref(false);
+    watch(search, async () => {
+      await use.getUsersByID(search.value);
+    });
+    //peticion del usuario al montarse
+    return {
+      use,
+      search,
+      viewSearch,
+    };
+  },
+  components: { CardRequest },
 };
 </script>
 
+
 <template>
-  <div class="bodySearch">
-    <div class="inputContent">
-      <q-input outlined label="Search Friends" v-model="search" />
-    </div>
-    <div class="titleContent" v-if="search">
-      <CardRequest v-for="friend in use.usersResquet.data" :key="friend.uid" :data="friend"/>
-    </div>
-    </div>
+  <div id="bodyModal" class="q-pa-md q-gutter-sm">
+    <q-card class="contentCard">
+      <div class="headerRequest">
+        <div class="textContent">
+          <h5>Añadir amigos</h5>
+        </div>
+        <div class="btnContent">
+          <q-btn
+            flat
+            round
+            dense
+            icon="close"
+            @click="use.modalRequest = !use.modalRequest"
+          ></q-btn>
+        </div>
+      </div>
+
+      <div class="inputContent">
+        <q-input outlined label="search friends" v-model="search" />
+      </div>
+      <q-card-section class="scroll" id="contentSection">
+        <div class="titleContent" v-if="search">
+          <CardRequest
+            v-for="friend in use.usersResquet.data"
+            :key="friend.uid"
+            :data="friend"
+          />
+        </div>
+      </q-card-section>
+    </q-card>
+  </div>
 </template>
+
 <style scoped>
-
-.inputContent, .homeFriends{
-  width: 90%;
-  margin: 0 auto;
-}
-
-.titleContent {
-  margin: 2rem 0 0 0;
-}
-
-.titleContent h4{
-  font-weight: bold;
-}
- /* .bodySearch {
-  width: 80%;
-  min-height: 5rem;
+.contentCard {
+  width: 28rem;
+  min-height: 20rem;
   display: flex;
-  padding: 16px;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin: 3.1rem 0 0 0;
-  color: #000;
+  flex-direction: column;
+  align-items: center;
 }
 
-.inputContent {
- width: 100%;
-  height: 2rem;
- display: flex;
- flex-direction: row;
- justify-content: center;
-}
-
-.inputContent div{
-  width: 23rem;
-}
-
-
-.resultFriends{
+.bodyUserResquet {
+  width: 100%;
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-around;
-
-}.descriptContent{
-  display: flex;
-  padding: 8px 16px;
   justify-content: space-between;
   align-items: center;
 }
-.nameContent h3{
-  font-size: 30px;
-  font-weight: 400;
+
+.headerRequest {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
 }
 
-  .nameContent h3{
-    font-size: 1.8rem;
-  } */
+#contentSection {
+  width: 95%;
+}
+
+.bodyUserResquet {
+  padding: 10px;
+  margin: 15px 0;
+}
+
+.iconContent button {
+  margin: 0 7px;
+}
+
+.btnContent {
+  width: 10%;
+  display: flex;
+  justify-content: end;
+}
+.textContent{
+  width: 90%;
+  display: flex;
+  justify-content: center;
+}
 </style>
+
