@@ -24,7 +24,7 @@ export default {
 
         <q-card-section class="scroll" id="contentSection">
           <div class="contentUser" v-for="user in use.friendsReceivedRequest.data" :key="user.uid">
-            <q-card class="bodyUserResquet" v-if="!user.friends?.includes(use.myID[0].uid)">
+            <q-card class="bodyUserResquet" v-if="!user.friends?.includes(use.myID.uid)">
                 <div class="contentName">
                   <h4>
                     {{user.name}}

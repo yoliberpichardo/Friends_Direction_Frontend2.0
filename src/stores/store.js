@@ -71,7 +71,7 @@ const useStore = defineStore('storeID', {
 
       return this.myID
     },
-    
+
     async friendsNumber() {
       return await (await getOptions.get('number_friends', {
         headers: {
@@ -107,7 +107,7 @@ const useStore = defineStore('storeID', {
         })).data
         this.$q.notify({
           type: 'positive',
-          message: accept.data.msg
+          message: accept.msg
 
         })
 
@@ -135,7 +135,7 @@ const useStore = defineStore('storeID', {
         })).data
         this.$q.notify({
           type: 'positive',
-          message: decline.data.msg
+          message: decline.msg
 
         })
 
@@ -150,7 +150,7 @@ const useStore = defineStore('storeID', {
 
     async registerDirection (direction) {
       try{
-        const register = await (await getOptions.put('decline_request', { direction }, {
+        const register = await (await getOptions.put('edit', { direction }, {
           headers: {
             authorization: `bearer ${this.token}`,
           },
@@ -158,7 +158,7 @@ const useStore = defineStore('storeID', {
 
         this.$q.notify({
           type: 'positive',
-          message: register.data.msg
+          message: register.msg
 
         })
 
@@ -167,7 +167,32 @@ const useStore = defineStore('storeID', {
       } catch {
         this.$q.notify({
           type: 'negative',
-          message: 'no se pudo registrar su direccion'
+          message: 'no se pudo registrar su direccion 1'
+        })
+      }
+    },
+
+    async changePublic(isPublic) {
+      try{
+        const returnPublic = await (await getOptions.put('edit', { isPublic }, {
+          headers: {
+            authorization: `bearer ${this.token}`,
+          },
+        })).data
+
+        this.$q.notify({
+          type: 'positive',
+          message: returnPublic.msg
+
+        })
+
+        return returnPublic
+
+      } catch(err) {
+        console.log(err);
+        this.$q.notify({
+          type: 'negative',
+          message: 'no se pudo registrar su direccion 2'
         })
       }
     }

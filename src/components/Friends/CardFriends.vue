@@ -23,7 +23,7 @@ import useStore from "src/stores/store";
 <template>
   <q-card-section class="resultFriends">
     <q-card  class="bodyResult" >
-      <div class="descriptContent"  v-if="use.myID[0].uid !== user.uid">
+      <div class="descriptContent"  v-if="use.myID.uid !== user.uid">
         <div class="nameContent">
           <h3>{{user.name}}</h3>
           <p>19.499832, -70.741350</p>

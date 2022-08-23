@@ -6,8 +6,9 @@ import ModalsResquet from "../ModalsResquet.vue";
 import useStore from 'src/stores/store';
 import MyInfo from "./MyInfo.vue";
 import MapMyPerfil from "../Maps/MapMyPerfil.vue";
+import PerfilConfig from "./PerfilConfig.vue";
 export default {
-  components: { Layout, RequestFriends, ModalsResquet, MyInfo, MapMyPerfil },
+  components: { Layout, RequestFriends, ModalsResquet, MyInfo, MapMyPerfil, PerfilConfig },
   setup(){
     const use = useStore()
 
@@ -25,16 +26,14 @@ export default {
         <div class="modalItem" v-if="use.modal">
           <ModalsResquet />
         </div>
-        <div class="modalItem" v-if="use.modalRequest">
-          <RequestFriends />
-        </div>
         <div class="bodyPerfil">
-            <div class="contentMyInfo">
-              <MyInfo />
-            </div>
+          <div class="contentMyInfo">
+            <RequestFriends />
+          </div>
           <div class="bodyMap">
             <div class="contentInfo">
-              <h2>info usuario</h2>
+              <MyInfo />
+              <PerfilConfig />
             </div>
             <div class="contentMap">
               <MapMyPerfil />
@@ -57,7 +56,7 @@ export default {
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-evenly;
   margin-top: 5rem;
 }
 
@@ -69,17 +68,17 @@ export default {
 }
 
 .contentMyInfo {
-  width: 30%;
+  width: 20%;
   height: calc(100vh - 5rem);
   display: flex;
-  flex-direction: column;
-  border-right: 1px solid rgba(0, 0, 0, 0.418);
+  flex-direction: row;
+  border-right: 2px solid rgba(0, 0, 0, 0.418);
   margin-right: 10px;
   overflow: scroll;
 }
 
 .bodyMap {
-  width: 70%;
+  width: 75%;
   padding: 16px;
   display: flex;
   flex-direction: column;
@@ -88,7 +87,6 @@ export default {
 
 .contentInfo {
   height: 30%;
-  background: red;
 }
 
 .contentMap {

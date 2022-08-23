@@ -20,7 +20,7 @@ export default {
 
  <template>
   <div class="MyInfo">
-    <div class="bodyMyInfo" v-for="myInfo in use.myID" :key="myInfo.uid">
+    <div class="bodyMyInfo" >
       <div class="contentAvatar">
         <q-avatar size="5.8rem">
           <img src="../../assets/zoro.jpg" alt="" />
@@ -28,10 +28,10 @@ export default {
       </div>
       <div class="myInfoDescription">
         <div class="myName">
-          <h3>{{ myInfo.name }}</h3>
+          <h3>{{ use.myID?.name }}</h3>
         </div>
         <div class="myDirection">
-          <p ><b>Direccion : </b>{{myInfo.direction[0]}} - {{myInfo.direction[1]}} </p>
+          <p ><b>Direccion : </b>{{use.myID?.direction[0]}} - {{use.myID?.direction[1]}} </p>
         </div>
       </div>
     </div>
@@ -39,14 +39,24 @@ export default {
 </template>
 
 <style scoped>
-.bodyMyInfo{
+.MyInfo{
+  width: 100%;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+}
+.bodyMyInfo{
+  width: 100%;
+  display: flex;
+  /* align-items: center;
+  justify-content: center; */
 }
 .myDirection {
   display: flex;
   align-items: center;
+}
+
+.contentAvatar{
+  margin-right: 15px;
 }
 
 .myDirection p {

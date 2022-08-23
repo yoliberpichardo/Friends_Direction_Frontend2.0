@@ -58,8 +58,6 @@ export default {
                 </router-link>
 
                 <Notification />
-
-                <q-btn dense color="blue" round icon="person_search" class="q-ml-md" @click="use.modalRequest = !use.modalRequest"/>
               </q-tabs>
             </div>
           </div>

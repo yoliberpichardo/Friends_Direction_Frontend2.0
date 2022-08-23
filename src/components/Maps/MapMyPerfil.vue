@@ -35,7 +35,7 @@
 </script>
 
 <template>
-  <div id="myMap">
+  <div id="myMap" class="mapa" >
   </div>
 </template>
 
@@ -44,6 +44,11 @@
   width: 100%;
   height: 94%;
   overflow: hidden;
+}
+
+.mapa{
+  opacity: 0.4;
+  pointer-events: none;
 }
 
 </style>

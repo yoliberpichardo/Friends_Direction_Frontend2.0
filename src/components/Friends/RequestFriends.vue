@@ -27,19 +27,10 @@ export default {
 
 <template>
   <div id="bodyModal" class="q-pa-md q-gutter-sm">
-    <q-card class="contentCard">
+    <div  class="contentCard">
       <div class="headerRequest">
         <div class="textContent">
           <h5>Añadir amigos</h5>
-        </div>
-        <div class="btnContent">
-          <q-btn
-            flat
-            round
-            dense
-            icon="close"
-            @click="use.modalRequest = !use.modalRequest"
-          ></q-btn>
         </div>
       </div>
 
@@ -55,14 +46,13 @@ export default {
           />
         </div>
       </q-card-section>
-    </q-card>
+    </div>
   </div>
 </template>
 
 <style scoped>
 .contentCard {
-  width: 28rem;
-  min-height: 20rem;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;

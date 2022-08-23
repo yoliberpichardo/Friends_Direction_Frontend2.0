@@ -34,11 +34,12 @@ export default {
         });
 
         use.friendsData = await use.friendsGet();
-        console.log(resquet_send.data?.myuser?.request_send.includes(use.myID[0].uid));
-        if(resquet_send.data?.myuser?.request_send.includes(use.myID[0].uid)){
+        console.log(resquet_send.data?.myuser?.request_send.includes(use.myID.uid));
+        if(resquet_send.data?.myuser?.request_send.includes(use.myID.uid)){
           confirm.value = true
         }
       } catch (error) {
+        console.log(error);
         $q.notify({
           type: "negative",
           message: "no se pudo enviar la solicitud",
@@ -63,12 +64,12 @@ export default {
 
 <template>
   <q-card-section class="resultFriends">
-    <div class="condicionalDiv" v-if="friend.uid !== use.myID[0].uid">
+    <div class="condicionalDiv" v-if="friend.uid !== use.myID.uid">
       <q-card
         class="bodyResult"
         v-if="
-          !friend.friends?.includes(use.myID[0].uid) ||
-          !friend.request_send?.includes(use.myID[0].uid)
+          !friend.friends?.includes(use.myID.uid) ||
+          !friend.request_send?.includes(use.myID.uid)
         "
       >
         <div class="descriptContent">
@@ -80,7 +81,7 @@ export default {
               name="person_add"
               size="3rem"
               @click="sendRequest(friend.uid)"
-              v-if="!friend.request_received?.includes(use.myID[0].uid)"
+              v-if="!friend.request_received?.includes(use.myID.uid)"
             />
             <q-icon name="how_to_reg" color="positive" size="3rem" v-else/>
           </div>

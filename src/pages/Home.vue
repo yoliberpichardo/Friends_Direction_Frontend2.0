@@ -6,6 +6,7 @@ import MapBody from "src/components/Maps/MapHome.vue";
 import RequestFriends from "src/components/Friends/RequestFriends.vue";
 import Layout from "src/layouts/Layout.vue";
 import ModalsResquet from "src/components/ModalsResquet.vue";
+import { getUsersLocation } from 'src/helpers/getUsersLocation';
 
 export default {
   name: "Home",
@@ -19,12 +20,6 @@ export default {
 },
   setup() {
     const use = useStore();
-
-    onMounted(async () => {
-      use.friendsData = await use.friendsGet();
-      await use.myUser();
-      await use.getAllAvailableUsers();
-    });
 
     return {
       use,
