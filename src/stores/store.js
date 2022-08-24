@@ -15,7 +15,9 @@ const useStore = defineStore('storeID', {
       mapPerfil: null,
       usersResquet: [],
       $q: useQuasar(),
-      myID: null
+      myID: null,
+      disableMapPerfil: true,
+      newCoordinate: null
     }
   },
   actions: {
@@ -150,7 +152,7 @@ const useStore = defineStore('storeID', {
 
     async registerDirection (direction) {
       try{
-        const register = await (await getOptions.put('edit', { direction }, {
+        const register = await (await getOptions.put('edit_direction', { direction }, {
           headers: {
             authorization: `bearer ${this.token}`,
           },
@@ -174,7 +176,7 @@ const useStore = defineStore('storeID', {
 
     async changePublic(isPublic) {
       try{
-        const returnPublic = await (await getOptions.put('edit', { isPublic }, {
+        const returnPublic = await (await getOptions.put('edit_public', { isPublic }, {
           headers: {
             authorization: `bearer ${this.token}`,
           },

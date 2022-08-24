@@ -86,10 +86,13 @@ export default {
 }
 
 .contentInfo {
-  height: 30%;
+  width: 100%;
+  height: 25%;
+  display: flex;
+  justify-content: space-around;
 }
 
 .contentMap {
-  height: 68%;
+  height: 70%;
 }
 </style>

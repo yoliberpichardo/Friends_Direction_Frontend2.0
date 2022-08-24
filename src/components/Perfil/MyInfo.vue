@@ -8,7 +8,7 @@ export default {
 
     onMounted(async () => {
       await use.myUser();
-      console.log(use.myID);
+      console.log(use.myID?.direction);
     });
 
     return {
@@ -31,7 +31,7 @@ export default {
           <h3>{{ use.myID?.name }}</h3>
         </div>
         <div class="myDirection">
-          <p ><b>Direccion : </b>{{use.myID?.direction[0]}} - {{use.myID?.direction[1]}} </p>
+          <p ><b>Direccion : </b>{{use.myID?.direction[0].lng}} - {{use.myID?.direction[0]?.lat}} </p>
         </div>
       </div>
     </div>
@@ -40,15 +40,12 @@ export default {
 
 <style scoped>
 .MyInfo{
-  width: 100%;
   display: flex;
-  /* justify-content: space-between; */
 }
 .bodyMyInfo{
   width: 100%;
   display: flex;
-  /* align-items: center;
-  justify-content: center; */
+  justify-content: center;
 }
 .myDirection {
   display: flex;

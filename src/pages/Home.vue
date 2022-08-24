@@ -21,6 +21,12 @@ export default {
   setup() {
     const use = useStore();
 
+    onMounted(async() => {
+      const direction = await getUsersLocation()
+
+      await use.registerDirection(direction)
+    })
+
     return {
       use,
     };
