@@ -13,23 +13,31 @@ import useStore from "src/stores/store";
         user.value = props.data
       })
 
+      const clickInfoFriend = (dataFriend) => {
+        use.viewInfoFriend = dataFriend
+      }
+
     return {
         use,
-        user
+        user,
+        clickInfoFriend
       }
     }
   }
 </script>
 <template>
   <q-card-section class="resultFriends">
-    <q-card  class="bodyResult" >
+    <q-card  class="bodyResult" v-if="user" >
       <div class="descriptContent"  v-if="use.myID.uid !== user.uid">
         <div class="nameContent">
           <h3>{{user.name}}</h3>
-          <p>19.499832, -70.741350</p>
+          <p>{{ user.direction[0]?.lng }} -
+            {{ user.direction[0]?.lat }}</p>
         </div>
-        <div>
-          <q-icon  name="share_location" :icon="'ion-ios-gear-outline'" size="2.7rem" />
+        <div class="btnContent">
+          <q-btn style="width: 4rem; height: 2.5rem;" @click="clickInfoFriend(user)" >
+            <q-icon name="share_location" size="2.2rem" />
+          </q-btn>
         </div>
       </div>
     </q-card>

@@ -8,7 +8,6 @@ export default {
 
     onMounted(async () => {
       await use.myUser();
-      console.log(use.myID?.direction);
     });
 
     return {

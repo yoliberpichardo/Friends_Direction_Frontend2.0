@@ -12,6 +12,11 @@ export default {
       use.friendsData = await use.friendsGet();
       await use.myUser();
       await use.getAllAvailableUsers();
+      if(use.usersAvaible?.dataFriends.length){
+        use.viewInfoFriend = use.usersAvaible?.dataFriends[0]
+      }else{
+        use.viewInfoFriend = use.usersAvaible?.dataPublic[0]
+      }
     });
 
     return {

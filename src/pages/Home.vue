@@ -5,8 +5,9 @@ import FriendsView from "src/components/Friends/FriendsView.vue";
 import MapBody from "src/components/Maps/MapHome.vue";
 import RequestFriends from "src/components/Friends/RequestFriends.vue";
 import Layout from "src/layouts/Layout.vue";
-import ModalsResquet from "src/components/ModalsResquet.vue";
-import { getUsersLocation } from 'src/helpers/getUsersLocation';
+import ModalsResquet from "src/components/Modal/ModalsResquet.vue";
+import { getUsersLocation } from "src/helpers/getUsersLocation";
+import FriendInfo from "src/components/Friends/FriendInfo.vue";
 
 export default {
   name: "Home",
@@ -16,16 +17,17 @@ export default {
     RequestFriends,
     Layout,
     FriendsView,
-    ModalsResquet
-},
+    ModalsResquet,
+    FriendInfo,
+  },
   setup() {
     const use = useStore();
 
-    onMounted(async() => {
-      const direction = await getUsersLocation()
+    onMounted(async () => {
+      const direction = await getUsersLocation();
 
-      await use.registerDirection(direction)
-    })
+      await use.registerDirection(direction);
+    });
 
     return {
       use,
@@ -50,7 +52,7 @@ export default {
           </div>
           <div class="bodyMap">
             <div class="contentInfo">
-              <h2>info usuario</h2>
+              <FriendInfo />
             </div>
             <div class="contentMap">
               <MapBody />
@@ -103,8 +105,10 @@ export default {
 }
 
 .contentInfo {
-  height: 30%;
-  background: red;
+  width: 100%;
+  height: 25%;
+  display: flex;
+  justify-content: space-around;
 }
 
 .contentMap {

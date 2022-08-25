@@ -1,7 +1,7 @@
 <script>
 import useStore from 'src/stores/store'
 import { onMounted, ref } from 'vue-demi'
-import Notification from 'src/components/Notification.vue'
+import Notification from 'src/layouts/Notification.vue'
 import router from 'src/router';
 
 

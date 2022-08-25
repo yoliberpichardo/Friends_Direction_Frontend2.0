@@ -1,6 +1,6 @@
 <script>
 import { ref } from "@vue/runtime-core";
-import getOptions from "../api/dataBase";
+import getOptions from "../../api/dataBase";
 import router from 'src/router';
 
 

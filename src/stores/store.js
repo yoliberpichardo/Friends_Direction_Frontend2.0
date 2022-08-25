@@ -17,7 +17,9 @@ const useStore = defineStore('storeID', {
       $q: useQuasar(),
       myID: null,
       disableMapPerfil: true,
-      newCoordinate: null
+      newCoordinate: null,
+      viewInfoFriend: null,
+      receivedRequest: null
     }
   },
   actions: {
@@ -46,6 +48,7 @@ const useStore = defineStore('storeID', {
           authorization: `bearer ${this.token}`
         }
       })).data
+
     },
 
     /**
@@ -75,7 +78,7 @@ const useStore = defineStore('storeID', {
     },
 
     async friendsNumber() {
-      return await (await getOptions.get('number_friends', {
+      this.receivedRequest = await (await getOptions.get('number_friends', {
         headers: {
           authorization: `bearer ${this.token}`,
         },
@@ -102,18 +105,19 @@ const useStore = defineStore('storeID', {
      */
     async acceptFriends(userID) {
       try {
-        const accept = await (await getOptions.put('accept_friend', { userID }, {
+        const {myUser, msg} = await (await getOptions.put('accept_friend', { userID }, {
           headers: {
             authorization: `bearer ${this.token}`,
           },
         })).data
         this.$q.notify({
           type: 'positive',
-          message: accept.msg
+          message: msg
 
         })
-
-        return accept
+        await this.getUsers(myUser.request_received)
+        await this.getAllAvailableUsers()
+        await this.friendsNumber()
 
       } catch {
         this.$q.notify({

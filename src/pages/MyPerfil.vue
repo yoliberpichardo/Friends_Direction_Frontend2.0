@@ -1,12 +1,12 @@
 
 <script>
 import Layout from "src/layouts/Layout.vue";
-import RequestFriends from "../Friends/RequestFriends.vue";
-import ModalsResquet from "../ModalsResquet.vue";
+import RequestFriends from "../components/Friends/RequestFriends.vue";
+import ModalsResquet from "../components/Modal/ModalsResquet.vue";
 import useStore from 'src/stores/store';
-import MyInfo from "./MyInfo.vue";
-import MapMyPerfil from "../Maps/MapMyPerfil.vue";
-import PerfilConfig from "./PerfilConfig.vue";
+import MyInfo from "../components/Perfil/MyInfo.vue";
+import MapMyPerfil from "../components/Maps/MapMyPerfil.vue";
+import PerfilConfig from "../components/Perfil/PerfilConfig.vue";
 export default {
   components: { Layout, RequestFriends, ModalsResquet, MyInfo, MapMyPerfil, PerfilConfig },
   setup(){

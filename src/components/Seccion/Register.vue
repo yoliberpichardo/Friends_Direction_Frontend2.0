@@ -1,7 +1,7 @@
 <script>
 import { ref } from "@vue/runtime-core";
-import getOptions from "../api/dataBase";
-import router from '../router';
+import getOptions from "../../api/dataBase";
+import router from '../../router';
 
 export default {
   setup(props) {
