@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia'
 import getOptions from '../api/dataBase'
 import { useQuasar } from 'quasar'
+import directionAPI from 'src/api/direction'
+import { Marker } from 'mapbox-gl'
 
 const useStore = defineStore('storeID', {
   state: () => {
@@ -19,7 +21,11 @@ const useStore = defineStore('storeID', {
       disableMapPerfil: true,
       newCoordinate: null,
       viewInfoFriend: null,
-      receivedRequest: null
+      receivedRequest: null,
+      userCoordinate: null,
+      newMarker: new Marker({ color: "#005", anchor: "center" }),
+      coodinatesSource: null,
+      sourceData: null
     }
   },
   actions: {
@@ -105,7 +111,7 @@ const useStore = defineStore('storeID', {
      */
     async acceptFriends(userID) {
       try {
-        const {myUser, msg} = await (await getOptions.put('accept_friend', { userID }, {
+        const { myUser, msg } = await (await getOptions.put('accept_friend', { userID }, {
           headers: {
             authorization: `bearer ${this.token}`,
           },
@@ -154,8 +160,8 @@ const useStore = defineStore('storeID', {
       }
     },
 
-    async registerDirection (direction) {
-      try{
+    async registerDirection(direction) {
+      try {
         const register = await (await getOptions.put('edit_direction', { direction }, {
           headers: {
             authorization: `bearer ${this.token}`,
@@ -179,7 +185,7 @@ const useStore = defineStore('storeID', {
     },
 
     async changePublic(isPublic) {
-      try{
+      try {
         const returnPublic = await (await getOptions.put('edit_public', { isPublic }, {
           headers: {
             authorization: `bearer ${this.token}`,
@@ -194,14 +200,37 @@ const useStore = defineStore('storeID', {
 
         return returnPublic
 
-      } catch(err) {
+      } catch (err) {
         console.log(err);
         this.$q.notify({
           type: 'negative',
           message: 'no se pudo registrar su direccion 2'
         })
       }
+    },
+
+    async directionInit(start, end) {
+      this.coodinatesSource = await (await directionAPI.get(`/${start.lng}, ${start.lat}; ${end.lng}, ${end.lat}`)).data
+
+    },
+
+    addSourceData(coords) {
+
+
+
+      this.sourceData = {
+        'type': 'geojson',
+        'data': {
+          'type': 'Feature',
+          'properties': {},
+          'geometry': {
+            'type': 'LineString',
+            'coordinates': coords
+          }
+        }
+      }
     }
+
 
   }
 })

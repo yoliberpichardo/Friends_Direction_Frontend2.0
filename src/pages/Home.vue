@@ -6,7 +6,6 @@ import MapBody from "src/components/Maps/MapHome.vue";
 import RequestFriends from "src/components/Friends/RequestFriends.vue";
 import Layout from "src/layouts/Layout.vue";
 import ModalsResquet from "src/components/Modal/ModalsResquet.vue";
-import { getUsersLocation } from "src/helpers/getUsersLocation";
 import FriendInfo from "src/components/Friends/FriendInfo.vue";
 
 export default {
@@ -22,12 +21,6 @@ export default {
   },
   setup() {
     const use = useStore();
-
-    onMounted(async () => {
-      const direction = await getUsersLocation();
-
-      await use.registerDirection(direction);
-    });
 
     return {
       use,
