@@ -24,7 +24,7 @@ export default {
           localStorage.setItem("token", userCompare.data.token);
           console.log(userCompare);
           initLogin.value = false;
-          router.push('/home')
+          router.push('/')
 
       }
     };
@@ -114,7 +114,6 @@ export default {
 
 .inputContent {
   width: 82%;
-  height: 80%;
   margin: 0.5rem;
   display: flex;
   flex-direction: column;

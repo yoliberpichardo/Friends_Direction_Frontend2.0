@@ -46,12 +46,14 @@ export default {
 </template>
 
 <style>
-.inputContent,
 .homeFriends {
   width: 90%;
   margin: 0 auto;
 }
 
+.inputContent{
+  width: 90%;
+}
 .titleContent {
   margin: 2rem 0 0 0;
 }

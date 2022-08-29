@@ -11,7 +11,7 @@ export default {
             await use.friendsNumber();
             requestInterval = setInterval(async () => {
               await use.friendsNumber();
-            }, 20000);
+            }, 12000);
         });
 
         onUnmounted(() => {

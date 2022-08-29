@@ -12,7 +12,7 @@ const routes = [
     component: () => import('src/components/Seccion/Register.vue')
   },
   {
-    path: '/home',
+    path: '/',
     name: 'home',
     component: () => import('pages/Home.vue'),
     meta: {

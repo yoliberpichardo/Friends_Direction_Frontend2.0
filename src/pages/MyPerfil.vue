@@ -56,7 +56,7 @@ export default {
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: center;
   margin-top: 5rem;
 }
 
@@ -68,12 +68,11 @@ export default {
 }
 
 .contentMyInfo {
-  width: 20%;
+  width: 28%;
   height: calc(100vh - 5rem);
   display: flex;
   flex-direction: row;
   border-right: 2px solid rgba(0, 0, 0, 0.418);
-  margin-right: 10px;
   overflow: scroll;
 }
 

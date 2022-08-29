@@ -51,6 +51,11 @@ export default {
 </template>
 
 <style scoped>
+#bodyModal{
+  width: 100%;
+  padding: 0;
+}
+
 .contentCard {
   width: 100%;
   display: flex;
@@ -94,6 +99,9 @@ export default {
   width: 90%;
   display: flex;
   justify-content: center;
+}
+.inputContent{
+  width: 80%;
 }
 </style>
 

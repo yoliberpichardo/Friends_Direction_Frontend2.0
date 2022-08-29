@@ -68,7 +68,7 @@ export default {
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  /* justify-content: center; */
   margin-top: 5rem;
 }
 
@@ -80,17 +80,19 @@ export default {
 }
 
 .contentFriends {
-  width: 30%;
+  width: 26%;
+  min-width: 305px;
   height: calc(100vh - 5rem);
   display: flex;
   flex-direction: column;
+  align-items: center;
   border-right: 1px solid rgba(0, 0, 0, 0.418);
   margin-right: 10px;
-  overflow: scroll;
+  overflow: hidden;
 }
 
 .bodyMap {
-  width: 70%;
+  width: 75%;
   padding: 16px;
   display: flex;
   flex-direction: column;

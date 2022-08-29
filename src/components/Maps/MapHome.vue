@@ -6,14 +6,14 @@ import useStore from "src/stores/store";
 export default {
   setup() {
     const use = useStore();
+    console.log(process.env.VUE_APP_RUTA_API);
 
     onMounted(async () => {
       await use.myUser();
 
       const { lng, lat } = await use.myID?.direction[0];
 
-      mapboxgl.accessToken =
-        "pk.eyJ1Ijoib3NjYXIxMjAwMiIsImEiOiJjbDZ2N3l0NHQyMmZ0M2pvYXBza3Eya20wIn0.q5aFgPhzm3_guUlI5Rv8NQ";
+      mapboxgl.accessToken = process.env.MAP_TOKEN;
 
       use.mapHome = new Map({
         container: "map", // container ID

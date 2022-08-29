@@ -49,7 +49,7 @@ export default {
                 v-model="tab"
                 narrow-indicator
               >
-                <router-link to="/home">
+                <router-link to="/">
                   <q-tab name="home" label="Home"></q-tab>
                 </router-link>
 

@@ -20,8 +20,7 @@ export default {
       // const [longitud, latitud] = await getUsersLocation();
       // console.log(coordinate);
 
-      mapboxgl.accessToken =
-        "pk.eyJ1Ijoib3NjYXIxMjAwMiIsImEiOiJjbDZ2N3l0NHQyMmZ0M2pvYXBza3Eya20wIn0.q5aFgPhzm3_guUlI5Rv8NQ";
+      mapboxgl.accessToken = process.env.MAP_TOKEN;
 
       const map = new Map({
         container: "myMap", // container ID

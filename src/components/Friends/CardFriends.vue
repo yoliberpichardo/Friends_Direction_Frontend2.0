@@ -19,17 +19,24 @@ export default {
       use.viewInfoFriend = dataFriend;
       const friendCoordinate = dataFriend.direction[0];
 
+
+      const bbox = [[myCoordinates.value.lng,myCoordinates.value.lat],[friendCoordinate.lng, friendCoordinate.lat]]
+
       await use.directionInit(myCoordinates.value, dataFriend.direction[0]);
       use.addSourceData(use.coodinatesSource.routes[0].geometry.coordinates);
 
+
+      if(use.mapHome?.getLayer('route')){
+        use.mapHome.removeLayer('route')
+        use.mapHome.removeSource('route')
+      }
       //TODO: new marker friend added in mapHome
       use.newMarker
         .setLngLat([friendCoordinate.lng, friendCoordinate.lat])
         .addTo(use.mapHome);
 
-      use.mapHome.flyTo({
-        center: [friendCoordinate.lng, friendCoordinate.lat],
-        zoom: 15,
+      use.mapHome.fitBounds(bbox, {
+        padding: 40,
       });
 
       use.mapHome.addSource("route", use.sourceData);
@@ -63,7 +70,7 @@ export default {
       <div class="descriptContent" v-if="use.myID.uid !== user.uid">
         <div class="nameContent">
           <h3>{{ user.name }}</h3>
-          <p>{{ user.direction[0]?.lng }} - {{ user.direction[0]?.lat }}</p>
+          <p>{{ user.direction[0]?.lng }} __ {{ user.direction[0]?.lat }}</p>
         </div>
         <div class="btnContent">
           <q-btn
@@ -82,6 +89,7 @@ export default {
 <style scope>
 .bodyResult {
   width: 100%;
+  min-width: 280px;
 }
 
 .resultFriends {

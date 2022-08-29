@@ -93,7 +93,7 @@ export default {
 
 <style scope>
 .condicionalDiv {
-  width: 88%;
+  width: 100%;
 }
 .bodyResult {
   width: 100%;
