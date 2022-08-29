@@ -17,8 +17,6 @@ export default {
       } else {
         coordinate = await getUsersLocation();
       }
-      // const [longitud, latitud] = await getUsersLocation();
-      // console.log(coordinate);
 
       mapboxgl.accessToken = process.env.MAP_TOKEN;
 
