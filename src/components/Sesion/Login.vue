@@ -23,12 +23,7 @@ export default {
         });
         localStorage.setItem("token", userCompare.data.token);
         initLogin.value = false;
-        if(userCompare){
-          await use.myUser();
-        }
-        if (!use.myID?.direction[0]?.lng) {
-          await use.registerDirection([{ lng: 0, lat: 0 }]);
-        }
+
         router.push("/");
       }
     };
