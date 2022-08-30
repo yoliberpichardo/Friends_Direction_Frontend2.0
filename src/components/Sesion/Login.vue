@@ -63,9 +63,9 @@ export default {
             </div>
           </q-card-actions>
         </div>
-        <q-input bg-color="white" outlined label="Email" v-model="result_email"/>
+        <q-input style="margin: 10px 0;" bg-color="white" outlined label="Email" v-model="result_email"/>
 
-        <q-input bg-color="white" outlined label="Password" v-model="result_password"/>
+        <q-input style="margin: 10px 0;" type="password" bg-color="white" outlined label="Password" v-model="result_password"/>
       </q-card-section>
 
       <q-card-section class="buttonContent">

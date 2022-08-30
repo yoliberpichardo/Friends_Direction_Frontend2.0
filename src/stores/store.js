@@ -3,6 +3,7 @@ import getOptions from '../api/dataBase'
 import { useQuasar } from 'quasar'
 import directionAPI from 'src/api/direction'
 import { Marker } from 'mapbox-gl'
+import router from 'src/router'
 
 const useStore = defineStore('storeID', {
   state: () => {
@@ -173,7 +174,7 @@ const useStore = defineStore('storeID', {
           message: register.msg
 
         })
-
+        await this.myUser()
         return register
 
       } catch {
@@ -229,6 +230,15 @@ const useStore = defineStore('storeID', {
           }
         }
       }
+    },
+
+    logOut(){
+      localStorage.removeItem('token')
+      this.$q.notify({
+        type: 'positive',
+        message: 'sesion cerrada'
+      })
+      return router.push("/login");
     }
 
 

@@ -3,13 +3,13 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
-    component: () => import('src/components/Seccion/Login.vue'),
+    component: () => import('src/components/Sesion/Login.vue'),
     meta: { requiresAuth: false },
   },
   {
     path: '/register',
     name: 'Register',
-    component: () => import('src/components/Seccion/Register.vue')
+    component: () => import('src/components/Sesion/Register.vue')
   },
   {
     path: '/',

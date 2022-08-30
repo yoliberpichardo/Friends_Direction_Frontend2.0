@@ -54,7 +54,7 @@ export default {
 
         <q-input bg-color="white" outlined label="Email" v-model="result_email"/>
 
-        <q-input bg-color="white" outlined label="Password" v-model="result_password"/>
+        <q-input bg-color="white" outlined type="password" label="Password" v-model="result_password"/>
       </div>
 
       <div class="buttonContent">

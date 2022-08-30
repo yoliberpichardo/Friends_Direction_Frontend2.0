@@ -6,7 +6,10 @@
   "author": "Yoliber Pichardo <yoliberfelixpp01@gmail.com>",
   "private": true,
   "scripts": {
-    "start": "quasar dev",
+    "start:dev": "quasar dev",
+    "build": "quasar build",
+    "start": "",
+    "deploy": "vercel ./dist/spa",
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {

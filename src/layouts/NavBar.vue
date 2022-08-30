@@ -58,6 +58,8 @@ export default {
                 </router-link>
 
                 <Notification />
+
+                <q-btn @click="use.logOut()" round color="black" icon="logout" size="0.7rem" />
               </q-tabs>
             </div>
           </div>
