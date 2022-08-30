@@ -22,9 +22,10 @@ export default {
           password: result_password.value,
         });
         localStorage.setItem("token", userCompare.data.token);
+        use.token = userCompare.data.token
         initLogin.value = false;
 
-        router.push("/");
+        return router.push("/");
       }
     };
 

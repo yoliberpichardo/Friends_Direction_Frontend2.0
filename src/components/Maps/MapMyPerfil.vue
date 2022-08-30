@@ -10,6 +10,7 @@ export default {
 
     onMounted(async () => {
       let coordinate;
+      console.log('hkjsdkjs');
       await use.myUser();
 
       if (use.myID.direction) {

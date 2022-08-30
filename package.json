@@ -9,6 +9,7 @@
     "start:dev": "quasar dev",
     "build": "quasar build",
     "start": "node server.js",
+    "deploy": "vercel",
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {

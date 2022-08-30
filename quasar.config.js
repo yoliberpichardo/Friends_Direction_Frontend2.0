@@ -12,7 +12,7 @@
 const { configure } = require('quasar/wrappers');
 // const envparsers = require('./config/envparser')
 
-module.exports = configure(function (/* ctx */) {
+module.exports = configure(function (ctx ) {
   return {
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
@@ -41,6 +41,8 @@ module.exports = configure(function (/* ctx */) {
         node: 'node16'
       },
       env: require('dotenv').config().parsed,
+
+      distDir: ctx.mode.spa ? 'public' : null,
 
       vueRouterMode: 'history', // available values: 'hash', 'history'
       // vueRouterBase,
