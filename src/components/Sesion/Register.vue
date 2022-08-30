@@ -21,7 +21,6 @@ export default {
           email: result_email.value,
           password: result_password.value,
         });
-        console.log(userCompare);
         return userCompare, router.replace({ path: "/login" });
       }
     };

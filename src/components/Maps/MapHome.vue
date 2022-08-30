@@ -10,10 +10,6 @@ export default {
     onMounted(async () => {
       await use.myUser();
 
-      if(!use.myID?.direction[0]?.lng){
-        await use.registerDirection([{lng: 0, lat: 0}]);
-      }
-
       const { lng, lat } = await use.myID?.direction[0];
 
       mapboxgl.accessToken = process.env.MAP_TOKEN;

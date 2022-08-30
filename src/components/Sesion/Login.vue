@@ -1,13 +1,13 @@
 <script>
 import { ref } from "@vue/runtime-core";
 import getOptions from "../../api/dataBase";
-import router from 'src/router';
-
-
+import router from "src/router";
+import useStore from "src/stores/store";
 
 export default {
   name: "Login",
   setup(props) {
+    const use = useStore();
     const result_email = ref("");
     const result_password = ref("");
     const initLogin = ref(false);
@@ -21,11 +21,15 @@ export default {
           email: result_email.value,
           password: result_password.value,
         });
-          localStorage.setItem("token", userCompare.data.token);
-          console.log(userCompare);
-          initLogin.value = false;
-          router.push('/')
-
+        localStorage.setItem("token", userCompare.data.token);
+        initLogin.value = false;
+        if(userCompare){
+          await use.myUser();
+        }
+        if (!use.myID?.direction[0]?.lng) {
+          await use.registerDirection([{ lng: 0, lat: 0 }]);
+        }
+        router.push("/");
       }
     };
 
@@ -39,10 +43,10 @@ export default {
       sendData,
       redirectRegister,
       initLogin,
-      router
+      router,
     };
   },
-}
+};
 </script>
 
 <template>
@@ -63,9 +67,22 @@ export default {
             </div>
           </q-card-actions>
         </div>
-        <q-input style="margin: 10px 0;" bg-color="white" outlined label="Email" v-model="result_email"/>
+        <q-input
+          style="margin: 10px 0"
+          bg-color="white"
+          outlined
+          label="Email"
+          v-model="result_email"
+        />
 
-        <q-input style="margin: 10px 0;" type="password" bg-color="white" outlined label="Password" v-model="result_password"/>
+        <q-input
+          style="margin: 10px 0"
+          type="password"
+          bg-color="white"
+          outlined
+          label="Password"
+          v-model="result_password"
+        />
       </q-card-section>
 
       <q-card-section class="buttonContent">
@@ -119,7 +136,6 @@ export default {
   flex-direction: column;
   justify-content: space-around;
 }
-
 
 .buttonContent {
   width: 90%;
@@ -199,5 +215,4 @@ export default {
     transform: translate(24px, 0);
   }
 }
-
 </style>
