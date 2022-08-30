@@ -49,9 +49,10 @@ export default {
     };
 
     const cancelNewCoordinate = () => {
-      console.log(use.myID?.direction);
       marker.value.setLngLat(use.myID?.direction[0]);
       use.disableMapPerfil = true;
+      console.log(use.myID?.direction[0].lat);
+      use.mapPerfil.flyTo({center: [use.myID?.direction[0].lng, use.myID?.direction[0].lat], zoom: 15});
     };
 
     return {

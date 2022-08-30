@@ -4,8 +4,7 @@ import { onMounted } from 'vue-demi';
 export default {
   setup() {
     const use = useStore();
-
-
+    
     return {
       use,
     };

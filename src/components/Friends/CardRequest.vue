@@ -34,7 +34,7 @@ export default {
         });
 
         use.friendsData = await use.friendsGet();
-        console.log(resquet_send.data?.myuser?.request_send.includes(use.myID.uid));
+       
         if(resquet_send.data?.myuser?.request_send.includes(use.myID.uid)){
           confirm.value = true
         }
