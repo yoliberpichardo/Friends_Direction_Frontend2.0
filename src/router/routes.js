@@ -3,13 +3,13 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
-    component: () => import('src/components/Sesion/Login.vue'),
+    component: () => import('components/Sesion/Login.vue'),
     meta: { requiresAuth: false },
   },
   {
     path: '/register',
     name: 'Register',
-    component: () => import('src/components/Sesion/Register.vue')
+    component: () => import('components/Sesion/Register.vue')
   },
   {
     path: '/',
@@ -23,7 +23,7 @@ const routes = [
   {
     path: '/perfil',
     name: 'perfil',
-    component: () => import('src/pages/MyPerfil.vue'),
+    component: () => import('pages/MyPerfil.vue'),
     meta: { requiresAuth: true },
   },
   {
