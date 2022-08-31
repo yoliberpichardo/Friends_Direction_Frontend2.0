@@ -1,28 +1,33 @@
 <script>
 import { ref } from "@vue/runtime-core";
 import getOptions from "../../api/dataBase";
-import router from '../../router';
+import router from "../../router";
 
 export default {
   setup(props) {
-    const result_email = ref("");
-    const result_password = ref("");
-    const result_name = ref("");
+    const result_email = ref(null);
+    const result_emailRef = ref(null);
+    const result_password = ref(null);
+    const result_passwordRef = ref(null);
+    const result_name = ref(null);
+    const result_nameRef = ref(null);
 
     const sendData = async () => {
-      if (!result_name.value || !result_email.value || !result_password.value ) {
-        alert("Por favor introduzca su credenciales bien");
-      }else if (result_password.value.length < 6){
-        alert('Tu contraseña es demasiada corta, debe de ser mayor a 6 caracteres')
-      }
-       else {
-        const userCompare = await getOptions.post("/register", {
-          name: result_name.value,
-          email: result_email.value,
-          password: result_password.value,
-        });
+
+      result_emailRef.value.validate()
+      result_passwordRef.value.validate()
+      result_nameRef.value.validate()
+
+      const userCompare = await getOptions.post("/register", {
+        name: result_name.value,
+        email: result_email.value,
+        password: result_password.value,
+      });
+
+      if(userCompare?.user){
         return userCompare, router.replace({ path: "/login" });
       }
+
     };
 
     const redirectLogin = () => {
@@ -31,11 +36,23 @@ export default {
 
     return {
       result_email,
+      result_emailRef,
+      result_emailRules: [
+        (val) => (val && val.length > 0) || "Please type something",
+      ],
       result_password,
+      result_passwordRef,
       result_name,
+      result_nameRef,
+      result_nameRules: [
+        (val) => (val && val.length > 0) || "Please type something",
+      ],
+      result_passwordRules: [
+        (val) => (val && val.length > 0) || "Please type something",
+      ],
       sendData,
       redirectLogin,
-      router
+      router,
     };
   },
 };
@@ -46,27 +63,48 @@ export default {
     <q-card-section class="descriptionRegister">
       <h1>Register</h1>
     </q-card-section>
-    <div class="bodyForm">
+    <form @submit.prevent.stop="sendData" class="bodyForm">
       <div class="inputContent">
+        <q-input
+          ref="result_nameRef"
+          bg-color="white"
+          outlined
+          label="Name"
+          v-model="result_name"
+          :rules="result_nameRules"
+        />
 
-        <q-input bg-color="white" outlined label="Name" v-model="result_name"/>
+        <q-input
+          ref="result_emailRef"
+          bg-color="white"
+          outlined
+          label="Email"
+          v-model="result_email"
+          :rules="result_emailRules"
+        />
 
-        <q-input bg-color="white" outlined label="Email" v-model="result_email"/>
-
-        <q-input bg-color="white" outlined type="password" label="Password" v-model="result_password"/>
+        <q-input
+          ref="result_passwordRef"
+          bg-color="white"
+          outlined
+          type="password"
+          label="Password"
+          v-model="result_password"
+          :rules="result_passwordRules"
+        />
       </div>
 
       <div class="buttonContent">
         <q-btn @click="redirectLogin">Log in</q-btn>
-        <q-btn @click="sendData">Register</q-btn>
+        <q-btn type="submit" color="primary">Register</q-btn>
       </div>
-    </div>
+    </form>
   </q-card>
 </template>
 
 <style scope>
 .bodyRegister {
-  background: #000;
+  background: rgb(255, 255, 255);
   width: 31rem;
   height: 32rem;
   padding: 1.5rem;
@@ -78,7 +116,6 @@ export default {
 
 .descriptionRegister {
   height: 30%;
-  color: #fff;
   display: flex;
   justify-content: center;
 }

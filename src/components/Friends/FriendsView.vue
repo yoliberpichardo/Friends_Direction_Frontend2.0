@@ -49,6 +49,7 @@ export default {
 .homeFriends {
   width: 90%;
   margin: 0 auto;
+  overflow: scroll;
 }
 
 .inputContent{

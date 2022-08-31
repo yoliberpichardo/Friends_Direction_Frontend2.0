@@ -43,6 +43,7 @@ export default {
             v-for="friend in use.usersResquet.data"
             :key="friend.uid"
             :data="friend"
+            :search="search"
           />
         </div>
       </q-card-section>

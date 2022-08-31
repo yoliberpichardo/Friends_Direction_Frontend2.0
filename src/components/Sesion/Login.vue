@@ -8,23 +8,24 @@ export default {
   name: "Login",
   setup(props) {
     const use = useStore();
-    const result_email = ref("");
-    const result_password = ref("");
+    const result_email = ref(null);
+    const result_emailRef = ref(null);
+    const result_password = ref(null);
+    const result_passwordRef = ref(null);
     const initLogin = ref(false);
 
     const sendData = async () => {
-      if (!result_email.value || !result_password.value) {
-        alert("Por favor introduzca su credenciales bien");
-      } else {
-        initLogin.value = true;
-        const userCompare = await getOptions.post("/login", {
-          email: result_email.value,
-          password: result_password.value,
-        });
+      initLogin.value = true
+      result_emailRef.value.validate();
+      result_passwordRef.value.validate();
+      const userCompare = await getOptions.post("/login", {
+        email: result_email.value,
+        password: result_password.value,
+      });
+      if (userCompare.user) {
         localStorage.setItem("token", userCompare.data.token);
-        use.token = userCompare.data.token
+        use.token = userCompare.data.token;
         initLogin.value = false;
-
         return router.push("/");
       }
     };
@@ -35,7 +36,15 @@ export default {
 
     return {
       result_email,
+      result_emailRef,
+      result_emailRules: [
+        (val) => (val && val.length > 0) || "Please type something",
+      ],
       result_password,
+      result_passwordRef,
+      result_passwordRules: [
+        (val) => (val && val.length > 0) || "Please type something",
+      ],
       sendData,
       redirectRegister,
       initLogin,
@@ -52,7 +61,7 @@ export default {
       <p>Login here using your email and password</p>
     </div>
     <q-card-section class="bodyForm">
-      <q-card-section class="inputContent">
+      <form @submit.prevent.stop="sendData" class="inputContent">
         <div v-if="initLogin" class="animationContent">
           <q-card-actions>
             <div class="lds-ellipsis">
@@ -64,26 +73,30 @@ export default {
           </q-card-actions>
         </div>
         <q-input
+        ref="result_emailRef"
           style="margin: 10px 0"
           bg-color="white"
           outlined
           label="Email"
           v-model="result_email"
+          :rules="result_emailRules"
         />
 
         <q-input
+        ref="result_passwordRef"
           style="margin: 10px 0"
           type="password"
           bg-color="white"
           outlined
           label="Password"
           v-model="result_password"
+          :rules="result_passwordRules"
         />
-      </q-card-section>
+      </form>
 
       <q-card-section class="buttonContent">
         <q-btn @click="redirectRegister">Register</q-btn>
-        <q-btn @click="sendData">
+        <q-btn type="submit" color="primary">
           <span v-if="!initLogin">Login</span>
           <span v-if="initLogin">Loading...</span>
         </q-btn>
@@ -94,7 +107,7 @@ export default {
 
 <style scope>
 .bodyLogin {
-  background: #000;
+  background: rgb(255, 255, 255);
   width: 31rem;
   height: 32rem;
   padding: 1.5rem;
@@ -106,7 +119,6 @@ export default {
 
 .descriptionLogin {
   height: 30%;
-  color: #fff;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -6,14 +6,13 @@ import useStore from "src/stores/store";
 import { useQuasar } from "quasar";
 
 export default {
-  props: ["data"],
+  props: ["data","search"],
   setup(props) {
     const use = useStore();
     const token = localStorage.getItem("token");
     const $q = useQuasar();
     const search = ref("");
     const friend = ref(Object);
-    const confirm = ref(false)
 
     const sendRequest = async (uid) => {
       try {
@@ -34,10 +33,8 @@ export default {
         });
 
         use.friendsData = await use.friendsGet();
-       
-        if(resquet_send.data?.myuser?.request_send.includes(use.myID.uid)){
-          confirm.value = true
-        }
+        // await use.getUsersByID(props.search)
+
       } catch (error) {
         console.log(error);
         $q.notify({
@@ -55,8 +52,7 @@ export default {
       use,
       sendRequest,
       search,
-      friend,
-      confirm
+      friend
     };
   },
 };
