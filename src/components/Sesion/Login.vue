@@ -92,15 +92,15 @@ export default {
           v-model="result_password"
           :rules="result_passwordRules"
         />
-      </form>
 
-      <q-card-section class="buttonContent">
-        <q-btn @click="redirectRegister">Register</q-btn>
-        <q-btn type="submit" color="primary">
-          <span v-if="!initLogin">Login</span>
-          <span v-if="initLogin">Loading...</span>
-        </q-btn>
-      </q-card-section>
+        <q-card-section class="buttonContent">
+          <q-btn @click="redirectRegister">Register</q-btn>
+          <q-btn type="submit" color="primary">
+            <span v-if="!initLogin">Login</span>
+            <span v-if="initLogin">Loading...</span>
+          </q-btn>
+        </q-card-section>
+      </form>
     </q-card-section>
   </q-card>
 </template>
