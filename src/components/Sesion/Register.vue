@@ -6,17 +6,16 @@ import router from "../../router";
 export default {
   setup(props) {
     const result_email = ref(null);
-    const result_emailRef = ref(null);
+    const isValidEmail = ref(false);
+    const errorEmail = ref(null);
     const result_password = ref(null);
-    const result_passwordRef = ref(null);
+    const isValidPassword = ref(false);
+    const errorPassword = ref(null);
     const result_name = ref(null);
-    const result_nameRef = ref(null);
+    const isValidName = ref(false);
+    const errorName = ref(null);
 
     const sendData = async () => {
-
-      result_emailRef.value.validate()
-      result_passwordRef.value.validate()
-      result_nameRef.value.validate()
 
       const userCompare = await getOptions.post("/register", {
         name: result_name.value,
@@ -24,10 +23,23 @@ export default {
         password: result_password.value,
       });
 
-      if(userCompare?.user){
-        return userCompare, router.replace({ path: "/login" });
+      if(userCompare?.data?.msg1){
+        isValidEmail.value = true
+        isValidPassword.value = true
+        isValidName.value = true
+        errorEmail.value = userCompare.data.msg1
+        errorPassword.value = userCompare.data.msg1
+        errorName.value = userCompare.data.msg1
       }
 
+      if(userCompare?.data?.msg2){
+        isValidPassword.value = true
+        errorPassword.value = userCompare.data.msg2
+      }
+
+      if (userCompare?.data.user) {
+        return userCompare, router.replace({ path: "/login" });
+      }
     };
 
     const redirectLogin = () => {
@@ -36,20 +48,14 @@ export default {
 
     return {
       result_email,
-      result_emailRef,
-      result_emailRules: [
-        (val) => (val && val.length > 0) || "Please type something",
-      ],
+      isValidEmail,
+      errorEmail,
       result_password,
-      result_passwordRef,
+      isValidPassword,
+      errorPassword,
       result_name,
-      result_nameRef,
-      result_nameRules: [
-        (val) => (val && val.length > 0) || "Please type something",
-      ],
-      result_passwordRules: [
-        (val) => (val && val.length > 0) || "Please type something",
-      ],
+      isValidName,
+      errorName,
       sendData,
       redirectLogin,
       router,
@@ -66,32 +72,31 @@ export default {
     <form @submit.prevent.stop="sendData()" class="bodyForm">
       <div class="inputContent">
         <q-input
-          ref="result_nameRef"
-          bg-color="white"
-          outlined
-          label="Name"
-          v-model="result_name"
-          :rules="result_nameRules"
+        bg-color="white"
+        outlined label="Name"
+        v-model="result_name"
+        :error-message="errorName"
+        :error="isValidName"
         />
 
         <q-input
-          ref="result_emailRef"
           bg-color="white"
           outlined
           label="Email"
           v-model="result_email"
-          :rules="result_emailRules"
+          :error-message="errorEmail"
+          :error="isValidEmail"
         />
 
         <q-input
-          ref="result_passwordRef"
           bg-color="white"
           outlined
           type="password"
           label="Password"
           v-model="result_password"
-          :rules="result_passwordRules"
-        />
+        :error-message="errorPassword"
+        :error="isValidPassword"
+          />
       </div>
 
       <div class="buttonContent">

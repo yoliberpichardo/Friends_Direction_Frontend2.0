@@ -1,5 +1,5 @@
 <script>
-import { ref } from "@vue/runtime-core";
+import { computed, ref } from "@vue/runtime-core";
 import getOptions from "../../api/dataBase";
 import router from "src/router";
 import useStore from "src/stores/store";
@@ -9,25 +9,47 @@ export default {
   setup(props) {
     const use = useStore();
     const result_email = ref(null);
-    const result_emailRef = ref(null);
     const result_password = ref(null);
-    const result_passwordRef = ref(null);
     const initLogin = ref(false);
+    const isValidPassword = ref(false);
+    const errorPassword = ref(null)
+    const isValidEmail = ref(false)
+    const errorEmail = ref(null)
 
     const sendData = async () => {
       initLogin.value = true
-      result_emailRef.value.validate();
-      result_passwordRef.value.validate();
+
+      if(!result_email || result_password){
+        initLogin.value = false
+        isValidEmail.value = true
+        errorEmail.value = "Please enter all fields"
+        isValidPassword.value = true
+        errorPassword.value = "Please enter all fields"
+      }
+
       const userCompare = await getOptions.post("/login", {
         email: result_email.value,
         password: result_password.value,
       });
-      if (userCompare?.user) {
+      if (userCompare?.data?.user) {
         localStorage.setItem("token", userCompare.data.token);
         use.token = userCompare.data.token;
-        initLogin.value = false;
         return router.push("/");
       }
+
+      if(userCompare?.data?.msg2){
+        initLogin.value = false
+        isValidPassword.value = true
+        errorPassword.value = userCompare.data.msg2
+      }
+
+      if(userCompare?.data?.msg1){
+        initLogin.value = false
+        isValidEmail.value = true
+        errorEmail.value = userCompare.data.msg1
+      }
+
+
     };
 
     const redirectRegister = () => {
@@ -36,19 +58,15 @@ export default {
 
     return {
       result_email,
-      result_emailRef,
-      result_emailRules: [
-        (val) => (val && val.length > 0) || "Please type something",
-      ],
       result_password,
-      result_passwordRef,
-      result_passwordRules: [
-        (val) => (val && val.length > 0) || "Please type something",
-      ],
       sendData,
       redirectRegister,
       initLogin,
       router,
+      isValidPassword,
+      errorPassword,
+      errorEmail,
+      isValidEmail
     };
   },
 };
@@ -73,24 +91,24 @@ export default {
           </q-card-actions>
         </div>
         <q-input
-        ref="result_emailRef"
           style="margin: 10px 0"
           bg-color="white"
           outlined
           label="Email"
           v-model="result_email"
-          :rules="result_emailRules"
+          :error-message="errorEmail"
+          :error="isValidEmail"
         />
 
         <q-input
-        ref="result_passwordRef"
           style="margin: 10px 0"
           type="password"
           bg-color="white"
           outlined
           label="Password"
           v-model="result_password"
-          :rules="result_passwordRules"
+          :error-message="errorPassword"
+          :error="isValidPassword"
         />
 
         <q-card-section class="buttonContent">
