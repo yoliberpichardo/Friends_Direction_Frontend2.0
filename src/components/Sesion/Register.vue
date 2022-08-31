@@ -63,7 +63,7 @@ export default {
     <q-card-section class="descriptionRegister">
       <h1>Register</h1>
     </q-card-section>
-    <form @submit.prevent.stop="sendData" class="bodyForm">
+    <form @submit.prevent.stop="sendData()" class="bodyForm">
       <div class="inputContent">
         <q-input
           ref="result_nameRef"

@@ -22,7 +22,7 @@ export default {
         email: result_email.value,
         password: result_password.value,
       });
-      if (userCompare.user) {
+      if (userCompare?.user) {
         localStorage.setItem("token", userCompare.data.token);
         use.token = userCompare.data.token;
         initLogin.value = false;
@@ -61,7 +61,7 @@ export default {
       <p>Login here using your email and password</p>
     </div>
     <q-card-section class="bodyForm">
-      <form @submit.prevent.stop="sendData" class="inputContent">
+      <form @submit.prevent.stop="sendData()" class="inputContent">
         <div v-if="initLogin" class="animationContent">
           <q-card-actions>
             <div class="lds-ellipsis">
