@@ -12,44 +12,41 @@ export default {
     const result_password = ref(null);
     const initLogin = ref(false);
     const isValidPassword = ref(false);
-    const errorPassword = ref(null)
-    const isValidEmail = ref(false)
-    const errorEmail = ref(null)
+    const errorPassword = ref(null);
+    const isValidEmail = ref(false);
+    const errorEmail = ref(null);
 
     const sendData = async () => {
-      initLogin.value = true
-
-      if(!result_email || !result_password){
-        initLogin.value = false
-        isValidEmail.value = true
-        errorEmail.value = "Please enter all fields"
-        isValidPassword.value = true
-        errorPassword.value = "Please enter all fields"
+      initLogin.value = true;
+      if (!result_email.value || !result_password.value) {
+        initLogin.value = false;
+        isValidEmail.value = true;
+        errorEmail.value = "Please enter all fields";
+        isValidPassword.value = true;
+        errorPassword.value = "Please enter all fields";
       }
-
       const userCompare = await getOptions.post("/login", {
         email: result_email.value,
         password: result_password.value,
       });
+
+      if (userCompare?.data?.msg2) {
+        initLogin.value = false;
+        isValidPassword.value = true;
+        errorPassword.value = userCompare.data.msg2;
+      }
+
+      if (userCompare?.data?.msg1) {
+        initLogin.value = false;
+        isValidEmail.value = true;
+        errorEmail.value = userCompare.data.msg1;
+      }
+
       if (userCompare?.data?.user) {
         localStorage.setItem("token", userCompare.data.token);
         use.token = userCompare.data.token;
         return router.push("/");
       }
-
-      if(userCompare?.data?.msg2){
-        initLogin.value = false
-        isValidPassword.value = true
-        errorPassword.value = userCompare.data.msg2
-      }
-
-      if(userCompare?.data?.msg1){
-        initLogin.value = false
-        isValidEmail.value = true
-        errorEmail.value = userCompare.data.msg1
-      }
-
-
     };
 
     const redirectRegister = () => {
@@ -66,7 +63,7 @@ export default {
       isValidPassword,
       errorPassword,
       errorEmail,
-      isValidEmail
+      isValidEmail,
     };
   },
 };

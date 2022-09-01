@@ -16,34 +16,32 @@ export default {
     const errorName = ref(null);
 
     const sendData = async () => {
-
-      if(!result_name.value || !result_email.value || !result_password.value){
-        isValidEmail.value = true
-        isValidPassword.value = true
-        isValidName.value = true
-        errorEmail.value = "Please enter all fields"
-        errorPassword.value = "Please enter all fields"
-        errorName.value = "Please enter all fields"
+      if (!result_name.value || !result_email.value || !result_password.value) {
+        isValidEmail.value = true;
+        isValidPassword.value = true;
+        isValidName.value = true;
+        errorEmail.value = "Please enter all fields";
+        errorPassword.value = "Please enter all fields";
+        errorName.value = "Please enter all fields";
       }
-
       const userCompare = await getOptions.post("/register", {
         name: result_name.value,
         email: result_email.value,
         password: result_password.value,
       });
 
-      if(userCompare?.data?.msg1){
-        isValidEmail.value = true
-        isValidPassword.value = true
-        isValidName.value = true
-        errorEmail.value = userCompare.data.msg1
-        errorPassword.value = userCompare.data.msg1
-        errorName.value = userCompare.data.msg1
+      if (userCompare?.data?.msg1) {
+        isValidEmail.value = true;
+        isValidPassword.value = true;
+        isValidName.value = true;
+        errorEmail.value = userCompare.data.msg1;
+        errorPassword.value = userCompare.data.msg1;
+        errorName.value = userCompare.data.msg1;
       }
 
-      if(userCompare?.data?.msg2){
-        isValidPassword.value = true
-        errorPassword.value = userCompare.data.msg2
+      if (userCompare?.data?.msg2) {
+        isValidPassword.value = true;
+        errorPassword.value = userCompare.data.msg2;
       }
 
       if (userCompare?.data.user) {
@@ -81,11 +79,12 @@ export default {
     <form @submit.prevent.stop="sendData()" class="bodyForm">
       <div class="inputContent">
         <q-input
-        bg-color="white"
-        outlined label="Name"
-        v-model="result_name"
-        :error-message="errorName"
-        :error="isValidName"
+          bg-color="white"
+          outlined
+          label="Name"
+          v-model="result_name"
+          :error-message="errorName"
+          :error="isValidName"
         />
 
         <q-input
@@ -103,9 +102,9 @@ export default {
           type="password"
           label="Password"
           v-model="result_password"
-        :error-message="errorPassword"
-        :error="isValidPassword"
-          />
+          :error-message="errorPassword"
+          :error="isValidPassword"
+        />
       </div>
 
       <div class="buttonContent">
