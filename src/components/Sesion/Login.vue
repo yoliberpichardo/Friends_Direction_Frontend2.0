@@ -19,7 +19,7 @@ export default {
     const sendData = async () => {
       initLogin.value = true
 
-      if(!result_email || result_password){
+      if(!result_email || !result_password){
         initLogin.value = false
         isValidEmail.value = true
         errorEmail.value = "Please enter all fields"

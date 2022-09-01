@@ -17,6 +17,15 @@ export default {
 
     const sendData = async () => {
 
+      if(!result_name.value || !result_email.value || !result_password.value){
+        isValidEmail.value = true
+        isValidPassword.value = true
+        isValidName.value = true
+        errorEmail.value = "Please enter all fields"
+        errorPassword.value = "Please enter all fields"
+        errorName.value = "Please enter all fields"
+      }
+
       const userCompare = await getOptions.post("/register", {
         name: result_name.value,
         email: result_email.value,
