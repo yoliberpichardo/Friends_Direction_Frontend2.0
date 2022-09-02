@@ -1,12 +1,14 @@
 <script>
-import { computed, ref } from "@vue/runtime-core";
+import { ref } from "@vue/runtime-core";
 import getOptions from "../../api/dataBase";
 import router from "src/router";
 import useStore from "src/stores/store";
+import { useQuasar } from 'quasar';
 
 export default {
   name: "Login",
   setup(props) {
+    const $q = useQuasar()
     const use = useStore();
     const result_email = ref(null);
     const result_password = ref(null);
@@ -43,8 +45,14 @@ export default {
       }
 
       if (userCompare?.data?.user) {
+        console.log("estuve aqui");
         localStorage.setItem("token", userCompare.data.token);
         use.token = userCompare.data.token;
+        $q.notify({
+          type: 'positive',
+          message: "sesion iniciada"
+
+        })
         return router.push("/");
       }
     };
